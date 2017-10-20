@@ -3,8 +3,6 @@ package Aufgabe_02;
 import org.junit.Before;
 import org.junit.Test;
 
-import sun.security.util.Debug;
-
 import static org.junit.Assert.assertEquals;
 
 public class ZeitTest {

@@ -13,11 +13,15 @@ public class Ticketautomat {
 	}
 	
 	public void create() {
-		tickets.add(new Ticket(id, Manager.getpreis()));
+		tickets.add(new Ticket(id, Manager.getPreis()));
 		id++;
 	}
 	
 	public List<Ticket> gettickets() {
 		return tickets;
+	}
+	
+	public Ticket search(int id) {
+		return tickets.get(id);
 	}
 }

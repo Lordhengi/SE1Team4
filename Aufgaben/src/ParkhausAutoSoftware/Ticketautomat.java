@@ -24,4 +24,8 @@ public class Ticketautomat {
 	public Ticket search(int id) {
 		return tickets.get(id);
 	}
+	
+	public void entwerten(Ticket ticket) {
+		ticket.entwerten();
+	}
 }

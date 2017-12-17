@@ -4,8 +4,8 @@ public class Ticket {
 
 	private int id;
 	private boolean entwertet;
-	private Zeit einfahrt;
-	private Zeit ausfahrt;
+	private newZeit einfahrt;
+	private newZeit ausfahrt;
 	private float preiseinfahrt;
 	
 }

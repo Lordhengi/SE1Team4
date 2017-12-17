@@ -2,9 +2,9 @@ package ParkhausAutoSoftware;
 
 public class Etage {
 	
-	public String name;
-	public int plaetze;
-	public int belegt;
+	private String name;
+	private int plaetze;
+	private int belegt;
 	
 	public Etage()
 	{

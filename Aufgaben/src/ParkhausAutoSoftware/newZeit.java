@@ -23,6 +23,12 @@ public class newZeit {
 		LocalTime newTimeHoures = newTimeMin.plusHours(other.stunden());
 		time = newTimeHoures;
 	}
+	
+	public static LocalTime aktuelleZeit()
+	{
+		return LocalTime.now();
+	}
+	
 
 	public void add(int hours, int min) {
 		LocalTime newTimeMin = time.plusMinutes(min);

@@ -28,4 +28,8 @@ public class Ticketautomat {
 	public void entwerten(Ticket ticket) {
 		ticket.entwerten();
 	}
+	
+	public int getid() {
+		return id;
+	}
 }

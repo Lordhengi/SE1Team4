@@ -4,7 +4,7 @@ public class Manager extends Mitarbeiter{
 	
 	private static float preis;
 	
-	public Manager(String name, String arbeit, int ticketpreis) {
+	public Manager(String name, String arbeit, float ticketpreis) {
 		super(name, arbeit);
 		preis = ticketpreis;
 	}

@@ -1,14 +1,28 @@
 package ParkhausAutoSoftware;
 
+import java.util.List;
+import java.util.ArrayList;
+
 public class Kunde {
 
-	private Ticket ticket;
+	private List<Ticket> tickets;
+	private int id;
 	
-	public Kunde(Ticket ticket) {
-		this.ticket = ticket;
+	public Kunde(Ticket t,int id) {
+		tickets = new ArrayList<Ticket>();
+		tickets.add(t);
+		this.id = id;
 	}
 	
 	public Ticket getticket() {
-		return ticket;
+		return tickets.get(tickets.size() - 2);
+	}
+	
+	public int getid() {
+		return id;
+	}
+	
+	public void parken(Ticket t) {
+		tickets.add(t);
 	}
 }

@@ -5,6 +5,11 @@ import java.time.LocalTime;
 public class newZeit {
 	private LocalTime time = null;
 
+	public newZeit(LocalTime time)
+	{
+		this.time = time;
+	}
+	
 	public newZeit(int hours, int min) {
 		time = LocalTime.of(0, 0);
 		add(hours, min);
@@ -24,9 +29,10 @@ public class newZeit {
 		time = newTimeHoures;
 	}
 	
-	public static LocalTime aktuelleZeit()
+	public static newZeit aktuelleZeit()
 	{
-		return LocalTime.now();
+		newZeit z = new newZeit(LocalTime.now());
+		return z;
 	}
 	
 

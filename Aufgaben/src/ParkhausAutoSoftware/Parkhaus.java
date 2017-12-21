@@ -24,7 +24,7 @@ public class Parkhaus {
 		kundenid = 0;
 	}
 	
-	public void installieren() {
+	public void addTicketautomaten() {
 		ticketautomaten.add(new Ticketautomat());
 	}
 	
@@ -72,14 +72,14 @@ public class Parkhaus {
 		return ticketautomaten.get(nr);
 	}
 	
-	public Kunde id(int id) {
+	public Kunde getKunde(int id) {
 		List<Kunde> karren = kunden.stream().filter(item -> item.getid() == id).collect(Collectors.toList());
 		if(karren.size() > 0) {
 			return karren.get(0);
 		} else return null;
 	}
 	
-	public Kunde auto(Ticket ticket) {
+	public Kunde getKunde(Ticket ticket) {
 		List<Kunde> karren = kunden.stream().filter(item -> item.getticket().equals(ticket)).collect(Collectors.toList());
 		if(karren.size() > 0) {
 			return karren.get(0);
@@ -102,11 +102,14 @@ public class Parkhaus {
 	
 	public void einfahren(int kid, int nr) {
 		ticketautomaten.get(nr).create();
-		if(id(kid).equals(null)) {
+		if(getKunde(kid) == null) {
+			Kunde k = new Kunde(ticketautomaten.get(nr).gettickets().get(ticketautomaten.get(nr).gettickets().size() - 1), kundenid);
+			kunden.add(k);
 			kundenid++;
-			new Kunde(ticketautomaten.get(nr).gettickets().get(ticketautomaten.get(nr).gettickets().size() - 1), kundenid);
 		} else {
-			id(kid).parken(ticketautomaten.get(nr).gettickets().get(ticketautomaten.get(nr).gettickets().size() - 1));
+			getKunde(kid).parken(ticketautomaten.get(nr).gettickets().get(ticketautomaten.get(nr).gettickets().size() - 1));
 		}
 	}
+	
+	
 }

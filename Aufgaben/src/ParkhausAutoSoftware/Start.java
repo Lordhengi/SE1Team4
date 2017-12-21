@@ -6,6 +6,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
 
 import ParkhausAutoSoftware.Fenster.KundenFenster;
 import ParkhausAutoSoftware.Fenster.ParkhausAnlegen;
@@ -23,12 +25,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.awt.event.ActionEvent;
 import javax.swing.JList;
+import javax.swing.table.DefaultTableModel;
 
 public class Start extends JFrame {
 
 	private JPanel contentPane;
 	private Parkhaus p;
 	private ParkhausAnlegen frame = null;
+	private JList listeDaten = null;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -97,26 +102,38 @@ public class Start extends JFrame {
 		btnParkhausAnlegen.setBounds(10, 11, 167, 23);
 		contentPane.add(btnParkhausAnlegen);
 		
+		DefaultTableModel m = new DefaultTableModel();
+		table = new JTable(m);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"KundenId", "Tickets"
+			}
+		));
+		table.setBounds(10, 231, 653, 393);
+		contentPane.add(table);
 		
-		JButton btnAutoEinfahrt = new JButton("Kunden anzeigen");
-		btnAutoEinfahrt.addActionListener(new ActionListener() {
+		JButton btnKundenanzeigen = new JButton("Kunden anzeigen");
+		btnKundenanzeigen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				DefaultListModel lDaten = new DefaultListModel();
 				List<Kunde> kunden = p.getKunden();
 				List<Integer> ids = kunden.stream().map(k -> k.getid()).collect(Collectors.toList());
-				int[] i = kunden.stream().mapToInt(k -> k.getid()).toArray();
-				//lDaten.add(0, ids.get(0));
-				lDaten.addElement("Test");
-				lblAnzahlParkpltze.setText(ids.get(0).toString());
-				JList list = new JList(lDaten);
-				list.setBounds(115, 577, 472, -267);
-				list.setVisible(true);
-				contentPane.add(list);
+				Kunde[] oids = new Kunde[kunden.size()];
+				oids = kunden.toArray(oids);
+				for(int i = 0; i < oids.length; i++)
+				{
+					Object[] row = new Object[oids.length];
+					row[0] = oids[i].getid();
+					row[1] = oids[i].gettickets().size();
+					((DefaultTableModel) table.getModel()).addRow(row);
+				}
+				
 			}
 		});
-		btnAutoEinfahrt.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnAutoEinfahrt.setBounds(10, 45, 167, 23);
-		contentPane.add(btnAutoEinfahrt);
+		btnKundenanzeigen.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnKundenanzeigen.setBounds(10, 45, 167, 23);
+		contentPane.add(btnKundenanzeigen);
 		
 		JButton btnAutoAusfahrt = new JButton("Auto f\u00E4hrt raus");
 		btnAutoAusfahrt.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -124,6 +141,10 @@ public class Start extends JFrame {
 		contentPane.add(btnAutoAusfahrt);
 		
 		JButton btnTicketautomatenwaehlen = new JButton("Ticketautomaten w\u00E4hlen");
+		btnTicketautomatenwaehlen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnTicketautomatenwaehlen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnTicketautomatenwaehlen.setBounds(10, 79, 200, 23);
 		contentPane.add(btnTicketautomatenwaehlen);
@@ -142,6 +163,7 @@ public class Start extends JFrame {
 		btnTicketsanzeigen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnTicketsanzeigen.setBounds(209, 115, 167, 23);
 		contentPane.add(btnTicketsanzeigen);
+		
 		
 
 	}

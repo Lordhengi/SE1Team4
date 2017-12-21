@@ -25,4 +25,8 @@ public class Kunde {
 	public void parken(Ticket t) {
 		tickets.add(t);
 	}
+	
+	public List<Ticket> gettickets() {
+		return tickets;
+	}
 }

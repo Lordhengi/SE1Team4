@@ -7,10 +7,24 @@ public class Kunde {
 
 	private List<Ticket> tickets;
 	private int id;
+	private boolean parkt = false;
 	
+	public boolean getParkt() {
+		return parkt;
+	}
+
+	public void setParkt(boolean parkt) {
+		this.parkt = parkt;
+	}
+
 	public Kunde(Ticket t,int id) {
 		tickets = new ArrayList<Ticket>();
-		tickets.add(t);
+		parken(t);
+		this.id = id;
+	}
+	
+	public Kunde(int id) {
+		tickets = new ArrayList<Ticket>();
 		this.id = id;
 	}
 	
@@ -24,6 +38,7 @@ public class Kunde {
 	
 	public void parken(Ticket t) {
 		tickets.add(t);
+		setParkt(true);
 	}
 	
 	public List<Ticket> gettickets() {

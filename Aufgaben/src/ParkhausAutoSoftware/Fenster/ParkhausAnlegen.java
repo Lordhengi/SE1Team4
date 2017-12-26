@@ -11,10 +11,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 
 public class ParkhausAnlegen extends JFrame {
 
+	private JFrame jf = null;
 	private JPanel contentPane;
 	private JTextField tbxParkhausName;
 	private JTextField tbxManagerName;
@@ -51,13 +54,30 @@ public class ParkhausAnlegen extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		jf = this;
+		
 		JButton btnAnlegen = new JButton("Anlegen");
 		btnAnlegen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Parkhausname = tbxParkhausName.getText();
-				Managername = tbxManagerName.getText();
-				Preis = Float.parseFloat(tbxPreis.getText());
-				dispose();
+				if(tbxParkhausName.getText() != "" || tbxManagerName.getText() != "" || tbxPreis.getText() != "")
+				{
+					try {
+					Parkhausname = tbxParkhausName.getText();
+					Managername = tbxManagerName.getText();
+					Preis = Float.parseFloat(tbxPreis.getText());
+					dispose();
+					}catch(NumberFormatException ex)
+					{
+						Parkhausname = null;
+						Managername = null;
+						Preis = 0;
+						JOptionPane.showMessageDialog(jf, "Bitte kontrollieren sie nochmals alle Textfelder auf ihre Werte !","Textfeld leer oder ungültig", JOptionPane.ERROR_MESSAGE);
+					}
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(jf, "Bitte kontrollieren sie nochmals alle Textfelder auf ihre Werte !","Textfeld leer oder ungültig", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		btnAnlegen.setBounds(335, 121, 89, 23);

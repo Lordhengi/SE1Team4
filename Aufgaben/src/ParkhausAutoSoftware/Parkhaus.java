@@ -101,13 +101,12 @@ public class Parkhaus {
 	}
 	
 	public void einfahren(int kid, int nr) {
-		ticketautomaten.get(nr).create();
 		if(getKunde(kid) == null) {
-			Kunde k = new Kunde(ticketautomaten.get(nr).gettickets().get(ticketautomaten.get(nr).gettickets().size() - 1), kundenid);
+			Kunde k = new Kunde(ticketautomaten.get(nr).create(), kundenid);
 			kunden.add(k);
 			kundenid++;
 		} else {
-			getKunde(kid).parken(ticketautomaten.get(nr).gettickets().get(ticketautomaten.get(nr).gettickets().size() - 1));
+			getKunde(kid).parken(ticketautomaten.get(nr).create());
 		}
 	}
 	

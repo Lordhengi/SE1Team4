@@ -121,6 +121,12 @@ public class Start extends JFrame {
 				List<Integer> ids = kunden.stream().map(k -> k.getid()).collect(Collectors.toList());
 				Kunde[] oids = new Kunde[kunden.size()];
 				oids = kunden.toArray(oids);
+				((DefaultTableModel) table.getModel()).getDataVector().removeAllElements();
+				Object[] rowColumnName = new Object[oids.length];
+				rowColumnName[0] = "Kundennummer";
+				rowColumnName[1] = "Ticketanzahl";
+				((DefaultTableModel) table.getModel()).addRow(rowColumnName);
+				
 				for(int i = 0; i < oids.length; i++)
 				{
 					Object[] row = new Object[oids.length];
@@ -128,7 +134,7 @@ public class Start extends JFrame {
 					row[1] = oids[i].gettickets().size();
 					((DefaultTableModel) table.getModel()).addRow(row);
 				}
-				
+				revalidate();
 			}
 		});
 		btnKundenanzeigen.setFont(new Font("Tahoma", Font.PLAIN, 14));

@@ -4,5 +4,8 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="D:/Users/Lordhengi/Downloads/xstream-1.4.10.jar"/>
+	<classpathentry kind="lib" path="D:/Users/Lordhengi/Documents/GitHub/SE1Team4/Aufgaben/xpp3-1.1.4c_src/xpp3-1.1.4c/xpp3_min-1.1.4c.jar"/>
+	<classpathentry kind="lib" path="D:/Users/Lordhengi/Documents/GitHub/SE1Team4/Aufgaben/xpp3-1.1.4c_src/xpp3-1.1.4c/xpp3_xpath-1.1.4c.jar"/>
+	<classpathentry kind="lib" path="D:/Users/Lordhengi/Documents/GitHub/SE1Team4/Aufgaben/xpp3-1.1.4c_src/xpp3-1.1.4c/xpp3-1.1.4c.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

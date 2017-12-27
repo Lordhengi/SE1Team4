@@ -3,10 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="D:/Users/Lordhengi/Downloads/xstream-1.4.10.jar"/>
-	<classpathentry kind="lib" path="D:/Users/Lordhengi/Documents/GitHub/SE1Team4/Aufgaben/xpp3-1.1.4c_src/xpp3-1.1.4c/xpp3_min-1.1.4c.jar"/>
-	<classpathentry kind="lib" path="D:/Users/Lordhengi/Documents/GitHub/SE1Team4/Aufgaben/xpp3-1.1.4c_src/xpp3-1.1.4c/xpp3_xpath-1.1.4c.jar"/>
-	<classpathentry kind="lib" path="D:/Users/Lordhengi/Documents/GitHub/SE1Team4/Aufgaben/xpp3-1.1.4c_src/xpp3-1.1.4c/xpp3-1.1.4c.jar"/>
 	<classpathentry exported="true" kind="lib" path="G:/ICH/Documents/GitHub/SE1Team4/Aufgaben/xstream-distribution-1.4.10-bin/xstream-1.4.10/lib/xstream-1.4.10.jar"/>
 	<classpathentry exported="true" kind="lib" path="G:/ICH/Documents/GitHub/SE1Team4/Aufgaben/xstream-distribution-1.4.10-bin/xstream-1.4.10/lib/xstream-benchmark-1.4.10.jar"/>
 	<classpathentry exported="true" kind="lib" path="G:/ICH/Documents/GitHub/SE1Team4/Aufgaben/xstream-distribution-1.4.10-bin/xstream-1.4.10/lib/xstream-hibernate-1.4.10.jar"/>

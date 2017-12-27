@@ -54,6 +54,7 @@ public class Start extends JFrame {
 	private JButton btnSpeichern;
 	private JButton btnLaden;
 	private String parkhaus;
+	XStream xstream = new XStream();
 
 
 	/**
@@ -330,12 +331,9 @@ public class Start extends JFrame {
 		btnSpeichern = new JButton("Speichern");
 		btnSpeichern.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				XStream xstream = new XStream();
 				xstream.processAnnotations(p.getClass());
-				for(int i = 0; i < p.getTicketautomaten().size(); i++) {
-					parkhaus = xstream.toXML(p.getTicketautomaten().get(i));
+					parkhaus = xstream.toXML(p);
 					System.out.println(parkhaus);
-				}
 			}
 		});
 		btnSpeichern.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -346,7 +344,7 @@ public class Start extends JFrame {
 		btnLaden = new JButton("Laden");
 		btnLaden.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				XStream xstream = new XStream();
 				p = (Parkhaus) xstream.fromXML(parkhaus);
 			}
 		});

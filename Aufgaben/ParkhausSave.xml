@@ -1,0 +1,21 @@
+<ParkhausAutoSoftware.Parkhaus>
+  <name>test</name>
+  <ticketautomaten>
+    <ParkhausAutoSoftware.Ticketautomat>
+      <tickets/>
+    </ParkhausAutoSoftware.Ticketautomat>
+  </ticketautomaten>
+  <etagen>
+    <ParkhausAutoSoftware.Etage>
+      <name>test</name>
+      <plaetze>20</plaetze>
+      <belegt>0</belegt>
+    </ParkhausAutoSoftware.Etage>
+  </etagen>
+  <mitarbeiter/>
+  <kunden/>
+  <manager>
+    <name>test</name>
+    <arbeit>Manager</arbeit>
+  </manager>
+</ParkhausAutoSoftware.Parkhaus>

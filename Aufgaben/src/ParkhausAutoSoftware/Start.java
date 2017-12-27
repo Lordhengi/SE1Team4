@@ -22,6 +22,10 @@ import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -332,20 +336,41 @@ public class Start extends JFrame {
 		btnSpeichern.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				xstream.processAnnotations(p.getClass());
-					parkhaus = xstream.toXML(p);
-					System.out.println(parkhaus);
+				String file = "ParkhausSave.xml";
+				try {
+					xstream.toXML(p, new FileWriter(file));
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				System.out.println(parkhaus);
 			}
 		});
 		btnSpeichern.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnSpeichern.setEnabled(false);
 		btnSpeichern.setBounds(501, 185, 162, 23);
 		contentPane.add(btnSpeichern);
-		
 		btnLaden = new JButton("Laden");
 		btnLaden.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				XStream xstream = new XStream();
-				p = (Parkhaus) xstream.fromXML(parkhaus);
+			//	xstream.processAnnotations(p.getClass());
+				String file = "ParkhausSave.xml";
+				try {
+					p = (Parkhaus) xstream.fromXML(new FileReader(file));
+					btnEtageErstellen.setEnabled(true);
+					btnEtagenAnzeigen.setEnabled(true);
+					btnKundenanzeigen.setEnabled(true);
+					btnLaden.setEnabled(false);
+					btnSpeichern.setEnabled(true);
+					btnParkhausAnlegen.setEnabled(false);
+					btnTicketautomatenAnzeigen.setEnabled(true);
+					btnTicketautomatenerstellen.setEnabled(true);
+					tbxEtagenname.setEnabled(true);
+					tbxEtagenplaetzte.setEnabled(true);
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnLaden.setFont(new Font("Tahoma", Font.PLAIN, 14));

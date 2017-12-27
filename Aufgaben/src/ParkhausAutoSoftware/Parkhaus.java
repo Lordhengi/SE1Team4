@@ -27,7 +27,7 @@ public class Parkhaus {
 	}
 	
 	public void addEtage(String ename, int plaetze) {
-		if(getEtage(ename).equals(null)) {
+		if(getEtage(ename) == null) {
 			etagen.add(new Etage(ename, plaetze));
 		} else {
 			
@@ -54,7 +54,7 @@ public class Parkhaus {
 		return ticketautomaten;
 	}
 	
-	public List<Etage> getEtage() {
+	public List<Etage> getEtagen() {
 		return etagen;
 	}
 

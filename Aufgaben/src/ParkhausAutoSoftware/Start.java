@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 import java.awt.event.ActionEvent;
 import javax.swing.JList;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JTextField;
 
 public class Start extends JFrame {
 
@@ -33,7 +34,8 @@ public class Start extends JFrame {
 	private Parkhaus p;
 	private ParkhausAnlegen frame = null;
 	private JList listeDaten = null;
-	private JTable table;
+	private JTable tblKunden;
+	private JTable tblTicketautomaten;
 
 	/**
 	 * Launch the application.
@@ -79,7 +81,7 @@ public class Start extends JFrame {
 						public void windowClosed(WindowEvent we)
 						{
 							p = new Parkhaus(frame.getParkhausname(), frame.getManagername(), frame.getPreis());
-							p.addTicketautomaten();
+							p.addTicketautomat();
 							p.einfahren(0,0);
 							p.einfahren(1,0);
 							p.einfahren(2,0);
@@ -103,36 +105,39 @@ public class Start extends JFrame {
 		contentPane.add(btnParkhausAnlegen);
 		
 		DefaultTableModel m = new DefaultTableModel();
-		table = new JTable(m);
-		table.setModel(new DefaultTableModel(
+		tblKunden = new JTable(m);
+		tblKunden.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
-				"KundenId", "Tickets"
+				"KundenId", "Tickets","Parkt"
 			}
 		));
-		table.setBounds(10, 231, 653, 393);
-		contentPane.add(table);
+		tblKunden.setBounds(10, 231, 653, 393);
+		contentPane.add(tblKunden);
 		
 		JButton btnKundenanzeigen = new JButton("Kunden anzeigen");
 		btnKundenanzeigen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				tblKunden.setVisible(true);
+				tblTicketautomaten.setVisible(false);
 				List<Kunde> kunden = p.getKunden();
-				List<Integer> ids = kunden.stream().map(k -> k.getid()).collect(Collectors.toList());
 				Kunde[] oids = new Kunde[kunden.size()];
 				oids = kunden.toArray(oids);
-				((DefaultTableModel) table.getModel()).getDataVector().removeAllElements();
+				((DefaultTableModel) tblKunden.getModel()).getDataVector().removeAllElements();
 				Object[] rowColumnName = new Object[oids.length];
 				rowColumnName[0] = "Kundennummer";
 				rowColumnName[1] = "Ticketanzahl";
-				((DefaultTableModel) table.getModel()).addRow(rowColumnName);
+				rowColumnName[2] = "Geparkt";
+				((DefaultTableModel) tblKunden.getModel()).addRow(rowColumnName);
 				
 				for(int i = 0; i < oids.length; i++)
 				{
 					Object[] row = new Object[oids.length];
-					row[0] = oids[i].getid();
-					row[1] = oids[i].gettickets().size();
-					((DefaultTableModel) table.getModel()).addRow(row);
+					row[0] = oids[i].getId();
+					row[1] = oids[i].getTickets().size();
+					row[2] = oids[i].getParkt();
+					((DefaultTableModel) tblKunden.getModel()).addRow(row);
 				}
 				revalidate();
 			}
@@ -141,34 +146,54 @@ public class Start extends JFrame {
 		btnKundenanzeigen.setBounds(10, 45, 167, 23);
 		contentPane.add(btnKundenanzeigen);
 		
-		JButton btnAutoAusfahrt = new JButton("Auto f\u00E4hrt raus");
-		btnAutoAusfahrt.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnAutoAusfahrt.setBounds(10, 178, 167, 23);
-		contentPane.add(btnAutoAusfahrt);
-		
-		JButton btnTicketautomatenwaehlen = new JButton("Ticketautomaten w\u00E4hlen");
-		btnTicketautomatenwaehlen.addActionListener(new ActionListener() {
+		JButton btnTicketautomatenerstellen = new JButton("Ticketautomaten erstellen");
+		btnTicketautomatenerstellen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				p.addTicketautomat();
 			}
 		});
-		btnTicketautomatenwaehlen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnTicketautomatenwaehlen.setBounds(10, 79, 200, 23);
-		contentPane.add(btnTicketautomatenwaehlen);
-		
-		JButton btnTicketautomatenerstellen = new JButton("Ticketautomaten erstellen");
 		btnTicketautomatenerstellen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnTicketautomatenerstellen.setBounds(234, 81, 200, 23);
+		btnTicketautomatenerstellen.setBounds(10, 79, 200, 23);
 		contentPane.add(btnTicketautomatenerstellen);
 		
-		JButton btnTicketziehen = new JButton("Ticket ziehen");
-		btnTicketziehen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnTicketziehen.setBounds(10, 113, 167, 23);
-		contentPane.add(btnTicketziehen);
+		DefaultTableModel dtmTicketautomat = new DefaultTableModel();
+		tblTicketautomaten = new JTable(dtmTicketautomat);
+		tblTicketautomaten.setModel(new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+					"TicketautomatenId"
+				}
+			));
+		tblTicketautomaten.setBounds(10, 231, 653, 393);
+		contentPane.add(tblTicketautomaten);
 		
-		JButton btnTicketsanzeigen = new JButton("Tickets anzeigen");
-		btnTicketsanzeigen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnTicketsanzeigen.setBounds(209, 115, 167, 23);
-		contentPane.add(btnTicketsanzeigen);
+		
+		JButton btnTicketautomatenAnzeigen = new JButton("Ticketautomaten anzeigen");
+		btnTicketautomatenAnzeigen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tblKunden.setVisible(false);
+				tblTicketautomaten.setVisible(true);
+				List<Ticketautomat> listeTa = p.getTicketautomaten();
+				Ticketautomat[] oids = new Ticketautomat[listeTa.size()];
+				oids = listeTa.toArray(oids);
+				((DefaultTableModel) tblTicketautomaten.getModel()).getDataVector().removeAllElements();
+				Object[] rowColumnName = new Object[oids.length];
+				rowColumnName[0] = "Ticketautomatennummer";
+				((DefaultTableModel) tblTicketautomaten.getModel()).addRow(rowColumnName);
+				
+				for(int i = 0; i < oids.length; i++)
+				{
+					Object[] row = new Object[oids.length];
+					row[0] = i;
+					((DefaultTableModel) tblTicketautomaten.getModel()).addRow(row);
+				}
+				revalidate();
+			}
+		});
+		btnTicketautomatenAnzeigen.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnTicketautomatenAnzeigen.setBounds(220, 47, 200, 23);
+		contentPane.add(btnTicketautomatenAnzeigen);
 		
 		
 

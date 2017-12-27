@@ -19,7 +19,7 @@ public class Kunde {
 
 	public Kunde(Ticket t,int id) {
 		tickets = new ArrayList<Ticket>();
-		parken(t);
+		addTicketAndSetParktTrue(t);
 		this.id = id;
 	}
 	
@@ -28,20 +28,20 @@ public class Kunde {
 		this.id = id;
 	}
 	
-	public Ticket getticket() {
-		return tickets.get(tickets.size() - 2);
+	public Ticket getTicket() {
+		return tickets.get(tickets.size() - 1);
 	}
 	
-	public int getid() {
+	public int getId() {
 		return id;
 	}
 	
-	public void parken(Ticket t) {
+	public void addTicketAndSetParktTrue(Ticket t) {
 		tickets.add(t);
 		setParkt(true);
 	}
 	
-	public List<Ticket> gettickets() {
+	public List<Ticket> getTickets() {
 		return tickets;
 	}
 }

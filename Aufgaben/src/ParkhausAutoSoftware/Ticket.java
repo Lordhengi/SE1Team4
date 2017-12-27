@@ -4,43 +4,36 @@ public class Ticket {
 
 	private int id;
 	private boolean entwertet;
-	private newZeit einfahrt;
-	private newZeit ausfahrt = null;
+	private NewZeit einfahrt;
+	private NewZeit ausfahrt = null;
 	private float preiseinfahrt;
 	
 	public Ticket(int id, float preiseinfahrt) {
 		this.id = id;
 		this.preiseinfahrt = preiseinfahrt;
-		einfahrt = newZeit.aktuelleZeit();
+		einfahrt = NewZeit.aktuelleZeit();
 		entwertet = false;
 	}
 	
-	public int getid() {
+	public int getId() {
 		return id;
 	}
 	
-	public boolean getentwertet() {
+	public boolean getEntwertet() {
 		return entwertet;
 	}
 	
-	public float getpreiseinfahrt() {
+	public float getPreiseinfahrt() {
 		return preiseinfahrt;
 	}
 	
-	public newZeit geteinfahrt() {
+	public NewZeit getEinfahrt() {
 		return einfahrt;
 	}
 	
-	public newZeit getausfahrt() {
-		if(entwertet) {
-			return ausfahrt;
-		} else {
-			return null;
-		}
-	}
-	
-	public void entwerten() {
+	public NewZeit getAusfahrt() {
 		entwertet = true;
-		ausfahrt = newZeit.aktuelleZeit();
+		ausfahrt = NewZeit.aktuelleZeit();
+		return ausfahrt;
 	}
 }

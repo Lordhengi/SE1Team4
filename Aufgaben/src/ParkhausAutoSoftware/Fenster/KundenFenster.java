@@ -9,11 +9,14 @@ import javax.swing.border.EmptyBorder;
 
 import ParkhausAutoSoftware.Kunde;
 import ParkhausAutoSoftware.Parkhaus;
+import ParkhausAutoSoftware.Ticket;
+import ParkhausAutoSoftware.NewZeit;
 
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -25,6 +28,9 @@ public class KundenFenster extends JFrame {
 	private Parkhaus p;
 	private JTextField tbxTicketautomat;
 	private JFrame jf = null;
+	private JButton btnRausfahren;
+	private JButton btnTicketEntwerten;
+	private JTextField tbxPreis;
 
 	
 	/**
@@ -44,21 +50,29 @@ public class KundenFenster extends JFrame {
 		JButton btnReinfahren = new JButton("Reinfahren");
 		btnReinfahren.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(tbxKundenId.getText().equals(""))
+				if(tbxKundenId.getText().equals("") || tbxTicketautomat.getText().equals(""))
 				{
-					JOptionPane.showMessageDialog(jf, "Das Textfeld für\r\ndie Kundennummer ist leer. \r\nBitte tragen sie etwas ein!","Textfeld leer", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(jf, "Bitte überprüfen sie die Werte der Textfelder!","Textfeld leer oder ungültiger Wert", JOptionPane.ERROR_MESSAGE);
 				}
 				else
 				{
-					if(tbxTicketautomat.getText().equals(""))
+					if(p.getKunde(Integer.parseInt(tbxKundenId.getText())) != null)
 					{
-						JOptionPane.showMessageDialog(jf, "Das Textfeld für\r\ndie Ticketautomatennummer ist leer. \r\nBitte tragen sie etwas ein!","Textfeld leer", JOptionPane.ERROR_MESSAGE);
+						if(!p.getKunde(Integer.parseInt(tbxKundenId.getText())).getParkt())
+						{
+							p.einfahren(Integer.parseInt(tbxKundenId.getText()), Integer.parseInt(tbxTicketautomat.getText()));
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(jf, "Sie parken bereits im Parkhaus","Error", JOptionPane.ERROR_MESSAGE);
+						}
 					}
 					else
 					{
 						p.einfahren(Integer.parseInt(tbxKundenId.getText()), Integer.parseInt(tbxTicketautomat.getText()));
 					}
 				}
+				
 			}
 		});
 		btnReinfahren.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -86,5 +100,90 @@ public class KundenFenster extends JFrame {
 		tbxTicketautomat.setColumns(10);
 		tbxTicketautomat.setBounds(210, 11, 230, 35);
 		contentPane.add(tbxTicketautomat);
+		
+		btnRausfahren = new JButton("Rausfahren");
+		btnRausfahren.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(tbxKundenId.getText().equals("") || tbxTicketautomat.getText().equals(""))
+				{
+					JOptionPane.showMessageDialog(jf, "Bitte überprüfen sie die Werte der Textfelder!","Textfeld leer oder ungültiger Wert", JOptionPane.ERROR_MESSAGE);
+				}
+				else
+				{
+					Kunde k = p.getKunde(Integer.parseInt(tbxKundenId.getText())); 
+					if(k.getTicket().getEntwertet())
+					{
+						k.setParkt(false);
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(jf, "Ticket wurde noch nicht entwertet!","Ticket entwerten", JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			}
+		});
+		btnRausfahren.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnRausfahren.setBounds(450, 11, 150, 35);
+		contentPane.add(btnRausfahren);
+		
+		btnTicketEntwerten = new JButton("Ticket entwerten");
+		btnTicketEntwerten.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(tbxKundenId.getText().equals("") || tbxTicketautomat.getText().equals(""))
+				{
+					JOptionPane.showMessageDialog(jf, "Bitte überprüfen sie die Werte der Textfelder!","Textfeld leer oder ungültiger Wert", JOptionPane.ERROR_MESSAGE);
+				}
+				else
+				{
+					Kunde k = p.getKunde(Integer.parseInt(tbxKundenId.getText()));
+					if(k != null)
+					{
+						Ticket t = k.getTicket();
+						if(k.getParkt())
+						{
+							if(!t.getEntwertet())
+							{
+								float preis = t.getPreiseinfahrt();
+								int minuten = NewZeit.differenzinMinuten(t.getEinfahrt(), t.getAusfahrt());
+								if(minuten > 0)
+								{
+									int h = (int)minuten/60;
+									int min = minuten-h*60;
+									DecimalFormat df = new DecimalFormat("0.00");
+									tbxPreis.setText(df.format(h*preis + min* (preis/60)).toString()+"€");
+								}
+								else
+								{
+									DecimalFormat df = new DecimalFormat("0.00");
+									tbxPreis.setText(df.format(preis/60).toString()+"€");
+								}
+							}
+							else
+							{
+								JOptionPane.showMessageDialog(jf, "Ticket wurde bereits entwertet!","Error", JOptionPane.ERROR_MESSAGE);
+							}
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(jf, "Kunde parkt nicht im Parkhaus","Error", JOptionPane.ERROR_MESSAGE);
+						}
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(jf, "Kunde existiert nicht, bitte Werte überprüfen!","Kunde nicht vorhanden", JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			}
+		});
+		btnTicketEntwerten.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnTicketEntwerten.setBounds(450, 103, 150, 35);
+		contentPane.add(btnTicketEntwerten);
+		
+		tbxPreis = new JTextField();
+		tbxPreis.setEditable(false);
+		tbxPreis.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tbxPreis.setColumns(10);
+		tbxPreis.setBounds(210, 122, 230, 35);
+		contentPane.add(tbxPreis);
 	}
 }

@@ -59,7 +59,7 @@ public class ParkhausAnlegen extends JFrame {
 		JButton btnAnlegen = new JButton("Anlegen");
 		btnAnlegen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(tbxParkhausName.getText() != "" || tbxManagerName.getText() != "" || tbxPreis.getText() != "")
+				if(!tbxParkhausName.getText().equals("") || !tbxManagerName.getText().equals("") || !tbxPreis.getText().equals(""))
 				{
 					try {
 					Parkhausname = tbxParkhausName.getText();
@@ -71,12 +71,12 @@ public class ParkhausAnlegen extends JFrame {
 						Parkhausname = null;
 						Managername = null;
 						Preis = 0;
-						JOptionPane.showMessageDialog(jf, "Bitte kontrollieren sie nochmals alle Textfelder auf ihre Werte !","Textfeld leer oder ungültig", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(jf, "Bitte kontrollieren sie nochmals alle Textfelder auf ihre Werte !","Textfeld leer oder ungültiger Wert", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(jf, "Bitte kontrollieren sie nochmals alle Textfelder auf ihre Werte !","Textfeld leer oder ungültig", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(jf, "Bitte kontrollieren sie nochmals alle Textfelder auf ihre Werte !","Textfeld leer oder ungültiger Wert", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

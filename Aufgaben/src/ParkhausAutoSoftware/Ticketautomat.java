@@ -19,15 +19,15 @@ public class Ticketautomat {
 		return t;
 	}
 	
-	public List<Ticket> gettickets() {
+	public List<Ticket> getTickets() {
 		return tickets;
 	}
 	
-	public Ticket search(int id) {
+	public Ticket getTicket(int id) {
 		return tickets.get(id);
 	}
 	
 	public void entwerten(Ticket ticket) {
-		ticket.entwerten();
+		ticket.getAusfahrt();
 	}
 }

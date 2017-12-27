@@ -6,10 +6,9 @@ import java.util.List;
 public class Ticketautomat {
 
 	private List<Ticket> tickets = new ArrayList<Ticket>();
-	int id;
+	public static int id = 0;
 	
 	public Ticketautomat() {
-		id = 0;
 	}
 	
 	public Ticket create() {

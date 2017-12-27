@@ -9,6 +9,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
+import com.thoughtworks.xstream.XStream;
+
 import ParkhausAutoSoftware.Fenster.KundenFenster;
 import ParkhausAutoSoftware.Fenster.ParkhausAnlegen;
 
@@ -49,6 +51,8 @@ public class Start extends JFrame {
 	private JButton btnEtageErstellen;
 	private JButton btnEtagenAnzeigen;
 	private JFrame jf;
+	private JButton btnSpeichern;
+	private JButton btnLaden;
 
 
 	/**
@@ -99,6 +103,9 @@ public class Start extends JFrame {
 							
 							btnTicketautomatenerstellen.setEnabled(true);
 							btnEtageErstellen.setEnabled(true);
+							btnSpeichern.setEnabled(true);
+							btnLaden.setEnabled(false);
+							btnParkhausAnlegen.setEnabled(false);
 							tbxEtagenname.setEnabled(true);
 							tbxEtagenplaetzte.setEnabled(true);
 							
@@ -318,6 +325,28 @@ public class Start extends JFrame {
 		btnEtagenAnzeigen.setEnabled(false);
 		btnEtagenAnzeigen.setBounds(463, 45, 200, 23);
 		contentPane.add(btnEtagenAnzeigen);
+		
+		btnSpeichern = new JButton("Speichern");
+		btnSpeichern.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				XStream xstream = new XStream();
+				xstream.processAnnotations(p.getClass());
+				for(int i = 0; i < p.getTicketautomaten().size(); i++) {
+					String test = xstream.toXML(p.getTicketautomaten().get(i));
+					System.out.println(test);
+				}
+			}
+		});
+		btnSpeichern.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnSpeichern.setEnabled(false);
+		btnSpeichern.setBounds(501, 185, 162, 23);
+		contentPane.add(btnSpeichern);
+		
+		btnLaden = new JButton("Laden");
+		btnLaden.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnLaden.setBounds(332, 185, 162, 23);
+		contentPane.add(btnLaden);
 		
 
 	}

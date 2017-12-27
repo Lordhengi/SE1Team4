@@ -54,7 +54,7 @@ public class Start extends JFrame {
 	private JButton btnSpeichern;
 	private JButton btnLaden;
 	private String parkhaus;
-	private XStream xstream;
+	private XStream xstream = new XStream();
 
 
 	/**
@@ -331,8 +331,6 @@ public class Start extends JFrame {
 		btnSpeichern = new JButton("Speichern");
 		btnSpeichern.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				xstream = new XStream();
 				xstream.processAnnotations(p.getClass());
 				for(int i = 0; i < p.getTicketautomaten().size(); i++) {
 					parkhaus = xstream.toXML(p.getTicketautomaten().get(i));

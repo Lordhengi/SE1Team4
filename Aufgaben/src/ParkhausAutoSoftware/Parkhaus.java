@@ -12,7 +12,6 @@ public class Parkhaus {
 	private List<Mitarbeiter> mitarbeiter;
 	private List<Kunde> kunden;
 	private Manager manager;
-	private int kundenid;
 	
 	public Parkhaus(String pname, String mname, float preis) {
 		name = pname;
@@ -21,42 +20,41 @@ public class Parkhaus {
 		mitarbeiter = new ArrayList<Mitarbeiter>();
 		kunden = new ArrayList<Kunde>();
 		manager = new Manager(mname, "Manager", preis);
-		kundenid = 0;
 	}
 	
-	public void addTicketautomaten() {
+	public void addTicketautomat() {
 		ticketautomaten.add(new Ticketautomat());
 	}
 	
-	public void bauen(String ename, int plaetze) {
-		if(geschoss(ename).equals(null)) {
+	public void addEtage(String ename, int plaetze) {
+		if(getEtage(ename).equals(null)) {
 			etagen.add(new Etage(ename, plaetze));
 		} else {
 			
 		}
 	}
 	
-	public void einstellen(String mname, String arbeit) {
-		if(arbeiter(mname).equals(null)) {
+	public void addMitarbeiter(String mname, String arbeit) {
+		if(getMitarbeiter(mname).equals(null)) {
 			mitarbeiter.add(new Mitarbeiter(mname, arbeit));
 		} else {
 			
 		}
 	}
 	
-	public String getname() {
+	public String getName() {
 		return name;
 	}
 	
-	public Manager getmanager() {
+	public Manager getManager() {
 		return manager;
 	}
 	
-	public List<Ticketautomat> getticketautomaten() {
+	public List<Ticketautomat> getTicketautomaten() {
 		return ticketautomaten;
 	}
 	
-	public List<Etage> getetage() {
+	public List<Etage> getEtage() {
 		return etagen;
 	}
 
@@ -68,32 +66,32 @@ public class Parkhaus {
 		return kunden;
 	}
 
-	public Ticketautomat geraet(int nr) {
+	public Ticketautomat getTicketautomat(int nr) {
 		return ticketautomaten.get(nr);
 	}
 	
 	public Kunde getKunde(int id) {
-		List<Kunde> karren = kunden.stream().filter(item -> item.getid() == id).collect(Collectors.toList());
+		List<Kunde> karren = kunden.stream().filter(item -> item.getId() == id).collect(Collectors.toList());
 		if(karren.size() > 0) {
 			return karren.get(0);
 		} else return null;
 	}
 	
 	public Kunde getKunde(Ticket ticket) {
-		List<Kunde> karren = kunden.stream().filter(item -> item.getticket().equals(ticket)).collect(Collectors.toList());
+		List<Kunde> karren = kunden.stream().filter(item -> item.getTicket().equals(ticket)).collect(Collectors.toList());
 		if(karren.size() > 0) {
 			return karren.get(0);
 		} else return null;
 	}
 	
-	public Etage geschoss(String gname) {
+	public Etage getEtage(String gname) {
 		List<Etage> stockwerke = etagen.stream().filter(item -> item.getName().equals(gname)).collect(Collectors.toList());
 		if(stockwerke.size() > 0) {
 			return stockwerke.get(0);
 		} else return null;
 	}
 	
-	public Mitarbeiter arbeiter(String aname) {
+	public Mitarbeiter getMitarbeiter(String aname) {
 		List<Mitarbeiter> kollegen = mitarbeiter.stream().filter(item -> item.getName().equals(aname)).collect(Collectors.toList());
 		if(kollegen.size() > 0) {
 			return kollegen.get(0);
@@ -102,11 +100,10 @@ public class Parkhaus {
 	
 	public void einfahren(int kid, int nr) {
 		if(getKunde(kid) == null) {
-			Kunde k = new Kunde(ticketautomaten.get(nr).create(), kundenid);
+			Kunde k = new Kunde(ticketautomaten.get(nr).create(), kid);
 			kunden.add(k);
-			kundenid++;
 		} else {
-			getKunde(kid).parken(ticketautomaten.get(nr).create());
+			getKunde(kid).addTicketAndSetParktTrue(ticketautomaten.get(nr).create());
 		}
 	}
 	

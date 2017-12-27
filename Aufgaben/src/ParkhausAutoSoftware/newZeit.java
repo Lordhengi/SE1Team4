@@ -1,16 +1,17 @@
 package ParkhausAutoSoftware;
 
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 
-public class newZeit {
+public class NewZeit {
 	private LocalTime time = null;
 
-	public newZeit(LocalTime time)
+	public NewZeit(LocalTime time)
 	{
 		this.time = time;
 	}
 	
-	public newZeit(int hours, int min) {
+	public NewZeit(int hours, int min) {
 		time = LocalTime.of(0, 0);
 		add(hours, min);
 	}
@@ -23,18 +24,24 @@ public class newZeit {
 		return this.time.getMinute();
 	}
 
-	public void add(newZeit other) {
+	public void add(NewZeit other) {
 		LocalTime newTimeMin = time.plusMinutes(other.minuten());
 		LocalTime newTimeHoures = newTimeMin.plusHours(other.stunden());
 		time = newTimeHoures;
 	}
 	
-	public static newZeit aktuelleZeit()
+	public static NewZeit aktuelleZeit()
 	{
-		newZeit z = new newZeit(LocalTime.now());
+		NewZeit z = new NewZeit(LocalTime.now());
 		return z;
 	}
 	
+	public static int differenzinMinuten(NewZeit z1, NewZeit z2)
+	{
+		long f = ChronoUnit.MINUTES.between(z1.time,z2.time);
+		int i = java.lang.Math.toIntExact(ChronoUnit.MINUTES.between(z1.time,z2.time));
+		return java.lang.Math.toIntExact(ChronoUnit.MINUTES.between(z1.time,z2.time));
+	}
 
 	public void add(int hours, int min) {
 		LocalTime newTimeMin = time.plusMinutes(min);
@@ -49,8 +56,8 @@ public class newZeit {
 
 	@Override
 	public boolean equals(Object other) {
-		if (other.getClass() != newZeit.class)
+		if (other.getClass() != NewZeit.class)
 			return false;
-		return this.time.equals(((newZeit) other).time);
+		return this.time.equals(((NewZeit) other).time);
 	}
 }

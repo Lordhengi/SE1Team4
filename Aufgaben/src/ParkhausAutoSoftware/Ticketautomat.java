@@ -11,8 +11,8 @@ public class Ticketautomat {
 	public Ticketautomat() {
 	}
 	
-	public Ticket create() {
-		Ticket t = new Ticket(id, Manager.getPreis());
+	public Ticket create(Parkhaus p) {
+		Ticket t = new Ticket(id, p.getManager().getPreis());
 		tickets.add(t);
 		id++;
 		return t;

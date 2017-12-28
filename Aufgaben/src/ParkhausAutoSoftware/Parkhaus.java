@@ -100,10 +100,10 @@ public class Parkhaus {
 	
 	public void einfahren(int kid, int nr, Etage parkEtage) {
 		if(getKunde(kid) == null) {
-			Kunde k = new Kunde(ticketautomaten.get(nr).create(), kid, parkEtage);
+			Kunde k = new Kunde(ticketautomaten.get(nr).create(this), kid, parkEtage);
 			kunden.add(k);
 		} else {
-			getKunde(kid).addTicketAndSetParktTrue(ticketautomaten.get(nr).create());
+			getKunde(kid).addTicketAndSetParktTrue(ticketautomaten.get(nr).create(this));
 		}
 	}
 	

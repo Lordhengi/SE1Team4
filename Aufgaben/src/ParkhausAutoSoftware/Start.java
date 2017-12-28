@@ -34,6 +34,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class Start extends JFrame {
 
@@ -44,11 +45,9 @@ public class Start extends JFrame {
 	private JTable tblKunden;
 	private JTable tblTicketautomaten;
 	private JTable tblEtagen;
-	private JTextField tbxParkplaetze;
 	private JTextField tbxEtagenname;
 	private JTextField tbxEtagenplaetzte;
 	private JButton btnTicketautomatenerstellen;
-	private JLabel lblAnzahlParkpltze;
 	private JButton btnParkhausAnlegen;
 	private JButton btnKundenanzeigen;
 	private JButton btnTicketautomatenAnzeigen;
@@ -59,6 +58,11 @@ public class Start extends JFrame {
 	private JButton btnLaden;
 	private String parkhaus;
 	XStream xstream = new XStream();
+	/**
+	 * @wbp.nonvisual location=-28,219
+	 */
+	private final JTextField textField = new JTextField();
+	private JTextField tbxPreis;
 
 
 	/**
@@ -81,6 +85,7 @@ public class Start extends JFrame {
 	 * Create the frame.
 	 */
 	public Start() {
+		textField.setColumns(10);
 		setTitle("Parkhaus-Automatisierungssystem");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 689, 689);
@@ -89,11 +94,6 @@ public class Start extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		jf = this;
-		
-		lblAnzahlParkpltze = new JLabel("Anzahl der Parkpl\u00E4tze:");
-		lblAnzahlParkpltze.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblAnzahlParkpltze.setBounds(223, 11, 143, 23);
-		contentPane.add(lblAnzahlParkpltze);
 		
 		btnParkhausAnlegen = new JButton("Parkhaus anlegen");
 		btnParkhausAnlegen.addActionListener(new ActionListener() {
@@ -114,7 +114,8 @@ public class Start extends JFrame {
 							btnParkhausAnlegen.setEnabled(false);
 							tbxEtagenname.setEnabled(true);
 							tbxEtagenplaetzte.setEnabled(true);
-							
+							tbxPreis.setEnabled(true);
+							tbxPreis.setText(Float.toString(p.getManager().getPreis()));
 							try {
 								KundenFenster frame = new KundenFenster(p);
 								frame.setVisible(true);
@@ -243,21 +244,12 @@ public class Start extends JFrame {
 				{
 					p.addEtage(tbxEtagenname.getText(), Integer.parseInt(tbxEtagenplaetzte.getText()));
 					btnEtagenAnzeigen.setEnabled(true);
-					tbxParkplaetze.setText(Integer.toString(p.getEtagen().stream().mapToInt(x -> x.getPlaetze()).sum()));
 				}
 			}
 		});
 		btnEtageErstellen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnEtageErstellen.setBounds(10, 185, 200, 23);
 		contentPane.add(btnEtageErstellen);
-		
-		tbxParkplaetze = new JTextField();
-		tbxParkplaetze.setEditable(false);
-		tbxParkplaetze.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tbxParkplaetze.setText("0");
-		tbxParkplaetze.setBounds(376, 12, 84, 20);
-		contentPane.add(tbxParkplaetze);
-		tbxParkplaetze.setColumns(10);
 		
 		tbxEtagenname = new JTextField();
 		tbxEtagenname.setEnabled(false);
@@ -322,7 +314,6 @@ public class Start extends JFrame {
 					row[2] = oids[i].getBelegt();
 					((DefaultTableModel) tblEtagen.getModel()).addRow(row);
 				}
-				tbxParkplaetze.setText(Integer.toString(p.getEtagen().stream().mapToInt(x -> x.getPlaetze()).sum()));
 				revalidate();
 				
 			}
@@ -367,6 +358,8 @@ public class Start extends JFrame {
 					btnTicketautomatenerstellen.setEnabled(true);
 					tbxEtagenname.setEnabled(true);
 					tbxEtagenplaetzte.setEnabled(true);
+					tbxPreis.setEnabled(true);
+					tbxPreis.setText(Float.toString(p.getManager().getPreis()));
 					try {
 						KundenFenster frame = new KundenFenster(p);
 						frame.setVisible(true);
@@ -382,6 +375,35 @@ public class Start extends JFrame {
 		btnLaden.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnLaden.setBounds(332, 185, 162, 23);
 		contentPane.add(btnLaden);
+		
+		tbxPreis = new JTextField();
+		tbxPreis.setHorizontalAlignment(SwingConstants.CENTER);
+		tbxPreis.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tbxPreis.setEnabled(false);
+		tbxPreis.setColumns(10);
+		tbxPreis.setBounds(291, 14, 84, 20);
+		contentPane.add(tbxPreis);
+		
+		JLabel lblPreis = new JLabel("Preis:");
+		lblPreis.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblPreis.setBounds(250, 11, 48, 23);
+		contentPane.add(lblPreis);
+		
+		JButton btnBtnpreisspeichern = new JButton("Preis speichern");
+		btnBtnpreisspeichern.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					p.getManager().setPreis(Float.parseFloat(tbxPreis.getText()));
+				}catch(NumberFormatException nfe)
+				{
+					JOptionPane.showMessageDialog(jf, "Dieser Wert ist ungültig!","ungültiger Wert", JOptionPane.ERROR_MESSAGE);
+				}
+				
+			}
+		});
+		btnBtnpreisspeichern.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnBtnpreisspeichern.setBounds(397, 11, 167, 23);
+		contentPane.add(btnBtnpreisspeichern);
 		
 
 	}

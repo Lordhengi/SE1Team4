@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import ParkhausAutoSoftware.Etage;
 import ParkhausAutoSoftware.Kunde;
 import ParkhausAutoSoftware.Parkhaus;
 import ParkhausAutoSoftware.Ticket;
@@ -17,9 +18,13 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JComboBox;
+import javax.swing.event.PopupMenuListener;
+import javax.swing.event.PopupMenuEvent;
 
 public class KundenFenster extends JFrame {
 
@@ -31,6 +36,7 @@ public class KundenFenster extends JFrame {
 	private JButton btnRausfahren;
 	private JButton btnTicketEntwerten;
 	private JTextField tbxPreis;
+	private JComboBox cmbxEtage;
 
 	
 	/**
@@ -50,9 +56,9 @@ public class KundenFenster extends JFrame {
 		JButton btnReinfahren = new JButton("Reinfahren");
 		btnReinfahren.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(tbxKundenId.getText().equals("") || tbxTicketautomat.getText().equals(""))
+				if(tbxKundenId.getText().equals("") || tbxTicketautomat.getText().equals("") || cmbxEtage.getSelectedItem().toString().equals("(Auswählen)"))
 				{
-					JOptionPane.showMessageDialog(jf, "Bitte überprüfen sie die Werte der Textfelder!","Textfeld leer oder ungültiger Wert", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(jf, "Bitte überprüfen sie Ihre Eintgaben!","Eingaben leer oder ungültiger Wert", JOptionPane.ERROR_MESSAGE);
 				}
 				else
 				{
@@ -60,7 +66,21 @@ public class KundenFenster extends JFrame {
 					{
 						if(!p.getKunde(Integer.parseInt(tbxKundenId.getText())).getParkt())
 						{
-							p.einfahren(Integer.parseInt(tbxKundenId.getText()), Integer.parseInt(tbxTicketautomat.getText()));
+							if(p.getEtagen().stream().mapToInt(x -> x.getPlaetze()).sum() != p.getEtagen().stream().mapToInt(x -> x.getBelegt()).sum())
+							{
+								if(p.getEtage(cmbxEtage.getSelectedItem().toString()).parkplatzBelegen())
+								{
+									p.einfahren(Integer.parseInt(tbxKundenId.getText()), Integer.parseInt(tbxTicketautomat.getText()),p.getEtage(cmbxEtage.getSelectedItem().toString()));
+								}
+								else
+								{
+									JOptionPane.showMessageDialog(jf, "Die Etage ist bereits belegt. Bitte wählen sie eine andere!","Etage belegt", JOptionPane.ERROR_MESSAGE);
+								}
+							}
+							else
+							{
+								JOptionPane.showMessageDialog(jf, "Das Parkhaus ist leider vollständig belegt!","Parkhaus belegt", JOptionPane.ERROR_MESSAGE);
+							}
 						}
 						else
 						{
@@ -69,7 +89,21 @@ public class KundenFenster extends JFrame {
 					}
 					else
 					{
-						p.einfahren(Integer.parseInt(tbxKundenId.getText()), Integer.parseInt(tbxTicketautomat.getText()));
+						if(p.getEtagen().stream().mapToInt(x -> x.getPlaetze()).sum() != p.getEtagen().stream().mapToInt(x -> x.getBelegt()).sum())
+						{
+							if(p.getEtage(cmbxEtage.getSelectedItem().toString()).parkplatzBelegen())
+							{
+								p.einfahren(Integer.parseInt(tbxKundenId.getText()), Integer.parseInt(tbxTicketautomat.getText()),p.getEtage(cmbxEtage.getSelectedItem().toString()));
+							}
+							else
+							{
+								JOptionPane.showMessageDialog(jf, "Die Etage ist bereits belegt. Bitte wählen sie eine andere!","Etage belegt", JOptionPane.ERROR_MESSAGE);
+							}
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(jf, "Das Parkhaus ist leider vollständig belegt!","Parkhaus belegt", JOptionPane.ERROR_MESSAGE);
+						}
 					}
 				}
 				
@@ -87,7 +121,7 @@ public class KundenFenster extends JFrame {
 		
 		JLabel lblKundennummer = new JLabel("Kundennummer:");
 		lblKundennummer.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblKundennummer.setBounds(74, 58, 138, 23);
+		lblKundennummer.setBounds(74, 63, 138, 23);
 		contentPane.add(lblKundennummer);
 		
 		JLabel lblTicketautomatennummer = new JLabel("Ticketautomatennummer:");
@@ -104,20 +138,35 @@ public class KundenFenster extends JFrame {
 		btnRausfahren = new JButton("Rausfahren");
 		btnRausfahren.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(tbxKundenId.getText().equals("") || tbxTicketautomat.getText().equals(""))
+				if(tbxKundenId.getText().equals("") || tbxTicketautomat.getText().equals("") || cmbxEtage.getSelectedItem().toString().equals("(Auswählen)"))
 				{
-					JOptionPane.showMessageDialog(jf, "Bitte überprüfen sie die Werte der Textfelder!","Textfeld leer oder ungültiger Wert", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(jf,  "Bitte überprüfen sie Ihre Eintgaben!","Eingaben leer oder ungültiger Wert", JOptionPane.ERROR_MESSAGE);
 				}
 				else
 				{
 					Kunde k = p.getKunde(Integer.parseInt(tbxKundenId.getText())); 
-					if(k.getTicket().getEntwertet())
+					if(k == null || k.getParkt())
 					{
-						k.setParkt(false);
+						if(k.getTicket().getEntwertet())
+						{
+							if(p.getEtage(k.getParkEtage().getName()).parkplatzEntbelegen())
+							{
+								k.setParkt(false);
+								k.setParkEtage(null);
+							}
+							else
+							{
+								JOptionPane.showMessageDialog(jf, "Fehler des Programmes! Bitte Programmierer kontaktieren.","Etage ist leer", JOptionPane.ERROR_MESSAGE);
+							}
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(jf, "Ticket wurde noch nicht entwertet!","Ticket entwerten", JOptionPane.ERROR_MESSAGE);
+						}
 					}
 					else
 					{
-						JOptionPane.showMessageDialog(jf, "Ticket wurde noch nicht entwertet!","Ticket entwerten", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(jf, "Sie parken nicht im Parkhaus","Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			}
@@ -129,9 +178,9 @@ public class KundenFenster extends JFrame {
 		btnTicketEntwerten = new JButton("Ticket entwerten");
 		btnTicketEntwerten.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(tbxKundenId.getText().equals("") || tbxTicketautomat.getText().equals(""))
+				if(tbxKundenId.getText().equals("") || tbxTicketautomat.getText().equals("") || cmbxEtage.getSelectedItem().toString().equals("(Auswählen)"))
 				{
-					JOptionPane.showMessageDialog(jf, "Bitte überprüfen sie die Werte der Textfelder!","Textfeld leer oder ungültiger Wert", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(jf, "Bitte überprüfen sie Ihre Eintgaben!","Eingaben leer oder ungültiger Wert", JOptionPane.ERROR_MESSAGE);
 				}
 				else
 				{
@@ -176,14 +225,40 @@ public class KundenFenster extends JFrame {
 			}
 		});
 		btnTicketEntwerten.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnTicketEntwerten.setBounds(450, 103, 150, 35);
+		btnTicketEntwerten.setBounds(450, 203, 150, 35);
 		contentPane.add(btnTicketEntwerten);
 		
 		tbxPreis = new JTextField();
 		tbxPreis.setEditable(false);
 		tbxPreis.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tbxPreis.setColumns(10);
-		tbxPreis.setBounds(210, 122, 230, 35);
+		tbxPreis.setBounds(210, 203, 230, 35);
 		contentPane.add(tbxPreis);
+		
+		cmbxEtage = new JComboBox();
+		cmbxEtage.addPopupMenuListener(new PopupMenuListener() {
+			public void popupMenuCanceled(PopupMenuEvent arg0) {
+			}
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent arg0) {
+			}
+			public void popupMenuWillBecomeVisible(PopupMenuEvent arg0) {
+				cmbxEtage.removeAllItems();
+				cmbxEtage.addItem("(Auswählen)");
+				List<Etage> listeEtage = p.getEtagen();
+				for(Etage et : listeEtage)
+				{
+					cmbxEtage.addItem(et.getName());
+				}
+			}
+		});
+		cmbxEtage.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		cmbxEtage.setBounds(210, 103, 230, 35);
+		cmbxEtage.addItem("(Auswählen)");
+		contentPane.add(cmbxEtage);
+		
+		JLabel lblEtage = new JLabel("Etage:");
+		lblEtage.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblEtage.setBounds(137, 109, 49, 23);
+		contentPane.add(lblEtage);
 	}
 }

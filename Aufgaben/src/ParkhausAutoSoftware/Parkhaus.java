@@ -98,9 +98,9 @@ public class Parkhaus {
 		} else return null;
 	}
 	
-	public void einfahren(int kid, int nr) {
+	public void einfahren(int kid, int nr, Etage parkEtage) {
 		if(getKunde(kid) == null) {
-			Kunde k = new Kunde(ticketautomaten.get(nr).create(), kid);
+			Kunde k = new Kunde(ticketautomaten.get(nr).create(), kid, parkEtage);
 			kunden.add(k);
 		} else {
 			getKunde(kid).addTicketAndSetParktTrue(ticketautomaten.get(nr).create());

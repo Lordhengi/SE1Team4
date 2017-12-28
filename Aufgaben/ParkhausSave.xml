@@ -2,18 +2,36 @@
   <name>test</name>
   <ticketautomaten>
     <ParkhausAutoSoftware.Ticketautomat>
-      <tickets/>
+      <tickets>
+        <ParkhausAutoSoftware.Ticket>
+          <id>0</id>
+          <entwertet>false</entwertet>
+          <einfahrt>
+            <time>12:57:16.469</time>
+          </einfahrt>
+          <preiseinfahrt>0.0</preiseinfahrt>
+        </ParkhausAutoSoftware.Ticket>
+      </tickets>
     </ParkhausAutoSoftware.Ticketautomat>
   </ticketautomaten>
   <etagen>
     <ParkhausAutoSoftware.Etage>
       <name>test</name>
       <plaetze>20</plaetze>
-      <belegt>0</belegt>
+      <belegt>1</belegt>
     </ParkhausAutoSoftware.Etage>
   </etagen>
   <mitarbeiter/>
-  <kunden/>
+  <kunden>
+    <ParkhausAutoSoftware.Kunde>
+      <tickets>
+        <ParkhausAutoSoftware.Ticket reference="../../../../ticketautomaten/ParkhausAutoSoftware.Ticketautomat/tickets/ParkhausAutoSoftware.Ticket"/>
+      </tickets>
+      <id>0</id>
+      <parkt>true</parkt>
+      <parkEtage reference="../../../etagen/ParkhausAutoSoftware.Etage"/>
+    </ParkhausAutoSoftware.Kunde>
+  </kunden>
   <manager>
     <name>test</name>
     <arbeit>Manager</arbeit>

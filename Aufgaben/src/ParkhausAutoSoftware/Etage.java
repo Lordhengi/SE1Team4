@@ -36,26 +36,30 @@ public class Etage {
 		this.belegt = belegt;
 	}
 	
-	public int parkplatzBelegen()
+	public boolean parkplatzBelegen()
 	{
 		if(belegt >= plaetze)
 		{
-			return belegt;
+			return false;
 		}
 		else
 		{
 			belegt++;
-			return belegt;
+			return true;
 		}
 	}
 	
-	public int parkplatzEntbelegen()
+	public boolean parkplatzEntbelegen()
 	{
 		if(belegt > 0)
 		{
 			belegt--;
+			return true;
 		}
-		return belegt;
+		else
+		{
+			return false;
+		}
 	}
 	
 	

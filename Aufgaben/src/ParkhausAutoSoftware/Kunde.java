@@ -8,18 +8,13 @@ public class Kunde {
 	private List<Ticket> tickets;
 	private int id;
 	private boolean parkt = false;
+	private Etage parkEtage = null;
 	
-	public boolean getParkt() {
-		return parkt;
-	}
-
-	public void setParkt(boolean parkt) {
-		this.parkt = parkt;
-	}
-
-	public Kunde(Ticket t,int id) {
+	
+	public Kunde(Ticket t,int id, Etage parkEtage) {
 		tickets = new ArrayList<Ticket>();
 		addTicketAndSetParktTrue(t);
+		this.parkEtage = parkEtage;
 		this.id = id;
 	}
 	
@@ -28,6 +23,23 @@ public class Kunde {
 		this.id = id;
 	}
 	
+	
+	public Etage getParkEtage() {
+		return parkEtage;
+	}
+
+	public void setParkEtage(Etage parkEtage) {
+		this.parkEtage = parkEtage;
+	}
+
+	public boolean getParkt() {
+		return parkt;
+	}
+
+	public void setParkt(boolean parkt) {
+		this.parkt = parkt;
+	}
+
 	public Ticket getTicket() {
 		return tickets.get(tickets.size() - 1);
 	}

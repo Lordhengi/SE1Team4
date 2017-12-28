@@ -367,6 +367,12 @@ public class Start extends JFrame {
 					btnTicketautomatenerstellen.setEnabled(true);
 					tbxEtagenname.setEnabled(true);
 					tbxEtagenplaetzte.setEnabled(true);
+					try {
+						KundenFenster frame = new KundenFenster(p);
+						frame.setVisible(true);
+					} catch (Exception e2) {
+						e2.printStackTrace();
+					}
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

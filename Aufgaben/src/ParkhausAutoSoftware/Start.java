@@ -39,7 +39,7 @@ import javax.swing.SwingConstants;
 public class Start extends JFrame {
 
 	private JPanel contentPane;
-	private Parkhaus p;
+	public Parkhaus p;
 	private ParkhausAnlegen frame = null;
 	private JList listeDaten = null;
 	private JTable tblKunden;
@@ -326,14 +326,8 @@ public class Start extends JFrame {
 		btnSpeichern = new JButton("Speichern");
 		btnSpeichern.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				xstream.processAnnotations(p.getClass());
-				String file = "ParkhausSave.xml";
-				try {
-					xstream.toXML(p, new FileWriter(file));
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-				System.out.println(parkhaus);
+				
+				save();
 			}
 		});
 		btnSpeichern.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -343,33 +337,7 @@ public class Start extends JFrame {
 		btnLaden = new JButton("Laden");
 		btnLaden.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				XStream xstream = new XStream();
-			//	xstream.processAnnotations(p.getClass());
-				String file = "ParkhausSave.xml";
-				try {
-					p = (Parkhaus) xstream.fromXML(new FileReader(file));
-					btnEtageErstellen.setEnabled(true);
-					btnEtagenAnzeigen.setEnabled(true);
-					btnKundenanzeigen.setEnabled(true);
-					btnLaden.setEnabled(false);
-					btnSpeichern.setEnabled(true);
-					btnParkhausAnlegen.setEnabled(false);
-					btnTicketautomatenAnzeigen.setEnabled(true);
-					btnTicketautomatenerstellen.setEnabled(true);
-					tbxEtagenname.setEnabled(true);
-					tbxEtagenplaetzte.setEnabled(true);
-					tbxPreis.setEnabled(true);
-					tbxPreis.setText(Float.toString(p.getManager().getPreis()));
-					try {
-						KundenFenster frame = new KundenFenster(p);
-						frame.setVisible(true);
-					} catch (Exception e2) {
-						e2.printStackTrace();
-					}
-				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				load();
 			}
 		});
 		btnLaden.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -406,5 +374,44 @@ public class Start extends JFrame {
 		contentPane.add(btnBtnpreisspeichern);
 		
 
+	}
+	
+	public String save() {
+		xstream.processAnnotations(p.getClass());
+		String file = "ParkhausSave.xml";
+		try {
+			xstream.toXML(p, new FileWriter(file));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		return xstream.toXML(p);
+	}
+	
+	public void load() {
+		XStream xstream = new XStream();
+		String file = "ParkhausSave.xml";
+		try {
+			p = (Parkhaus) xstream.fromXML(new FileReader(file));
+			btnEtageErstellen.setEnabled(true);
+			btnEtagenAnzeigen.setEnabled(true);
+			btnKundenanzeigen.setEnabled(true);
+			btnLaden.setEnabled(false);
+			btnSpeichern.setEnabled(true);
+			btnParkhausAnlegen.setEnabled(false);
+			btnTicketautomatenAnzeigen.setEnabled(true);
+			btnTicketautomatenerstellen.setEnabled(true);
+			tbxEtagenname.setEnabled(true);
+			tbxEtagenplaetzte.setEnabled(true);
+			tbxPreis.setEnabled(true);
+			tbxPreis.setText(Float.toString(p.getManager().getPreis()));
+			try {
+				KundenFenster frame = new KundenFenster(p);
+				frame.setVisible(true);
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
 	}
 }

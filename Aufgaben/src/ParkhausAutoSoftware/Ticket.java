@@ -1,22 +1,24 @@
 package ParkhausAutoSoftware;
 
+import java.util.UUID;
+
 public class Ticket {
 
-	private int id;
+	private UUID id;
 	private boolean entwertet;
 	private NewZeit einfahrt;
 	private NewZeit ausfahrt = null;
 	private float preiseinfahrt;
 	
-	public Ticket(int id, float preiseinfahrt) {
-		this.id = id;
+	public Ticket(float preiseinfahrt) {
+		id = UUID.randomUUID();
 		this.preiseinfahrt = preiseinfahrt;
 		einfahrt = NewZeit.aktuelleZeit();
 		entwertet = false;
 	}
 	
-	public int getId() {
-		return id;
+	public String getId() {
+		return id.toString();
 	}
 	
 	public boolean getEntwertet() {
@@ -32,6 +34,10 @@ public class Ticket {
 	}
 	
 	public NewZeit getAusfahrt() {
+		return ausfahrt;
+	}
+	
+	public NewZeit ausfahrt() {
 		entwertet = true;
 		ausfahrt = NewZeit.aktuelleZeit();
 		return ausfahrt;

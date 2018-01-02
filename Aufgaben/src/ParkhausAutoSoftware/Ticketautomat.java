@@ -12,7 +12,7 @@ public class Ticketautomat {
 	}
 	
 	public Ticket create(Parkhaus p) {
-		Ticket t = new Ticket(id, p.getManager().getPreis());
+		Ticket t = new Ticket(p.getManager().getPreis());
 		tickets.add(t);
 		id++;
 		return t;

@@ -26,7 +26,7 @@ import javax.swing.JComboBox;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.event.PopupMenuEvent;
 
-public class KundenFenster extends JFrame {
+public class KundenFenster extends JFrame{
 
 	private JPanel contentPane;
 	private JTextField tbxKundenId;
@@ -37,6 +37,7 @@ public class KundenFenster extends JFrame {
 	private JButton btnTicketEntwerten;
 	private JTextField tbxPreis;
 	private JComboBox cmbxEtage;
+	private Thread thread = null;
 
 	
 	/**
@@ -50,6 +51,7 @@ public class KundenFenster extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
 		
 		this.p = p;
 		jf = this;
@@ -71,6 +73,12 @@ public class KundenFenster extends JFrame {
 								if(p.getEtage(cmbxEtage.getSelectedItem().toString()).parkplatzBelegen())
 								{
 									p.einfahren(Integer.parseInt(tbxKundenId.getText()), Integer.parseInt(tbxTicketautomat.getText()),p.getEtage(cmbxEtage.getSelectedItem().toString()));
+									try {
+										AkutellerPreisFenster frame = new AkutellerPreisFenster(p.getKunde(Integer.parseInt(tbxKundenId.getText())));
+										frame.setVisible(true);
+									} catch (Exception ex) {
+										ex.printStackTrace();
+									}
 								}
 								else
 								{
@@ -94,6 +102,12 @@ public class KundenFenster extends JFrame {
 							if(p.getEtage(cmbxEtage.getSelectedItem().toString()).parkplatzBelegen())
 							{
 								p.einfahren(Integer.parseInt(tbxKundenId.getText()), Integer.parseInt(tbxTicketautomat.getText()),p.getEtage(cmbxEtage.getSelectedItem().toString()));
+								try {
+									AkutellerPreisFenster frame = new AkutellerPreisFenster(p.getKunde(Integer.parseInt(tbxKundenId.getText())));
+									frame.setVisible(true);
+								} catch (Exception ex) {
+									ex.printStackTrace();
+								}
 							}
 							else
 							{
@@ -193,19 +207,12 @@ public class KundenFenster extends JFrame {
 							if(!t.getEntwertet())
 							{
 								float preis = t.getPreiseinfahrt();
-								int minuten = NewZeit.differenzinMinuten(t.getEinfahrt(), t.getAusfahrt());
-								if(minuten > 0)
-								{
-									int h = (int)minuten/60;
-									int min = minuten-h*60;
-									DecimalFormat df = new DecimalFormat("0.00");
-									tbxPreis.setText(df.format(h*preis + min* (preis/60)).toString()+"€");
-								}
-								else
-								{
-									DecimalFormat df = new DecimalFormat("0.00");
-									tbxPreis.setText(df.format(preis/60).toString()+"€");
-								}
+								int sekunden = NewZeit.differenzinSekunden(t.getEinfahrt(), t.ausfahrt());
+								int h = (int)sekunden/3600;
+								int min = sekunden-h*3600;
+								int sec = (sekunden-h*3600)-min*60;
+								DecimalFormat df = new DecimalFormat("0.00");
+								tbxPreis.setText(df.format(h*preis + min* (preis/60) + sec *(preis/3600)).toString()+"€");
 							}
 							else
 							{
@@ -261,4 +268,5 @@ public class KundenFenster extends JFrame {
 		lblEtage.setBounds(137, 109, 49, 23);
 		contentPane.add(lblEtage);
 	}
+	
 }

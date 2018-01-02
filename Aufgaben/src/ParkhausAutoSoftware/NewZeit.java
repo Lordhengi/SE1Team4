@@ -42,6 +42,12 @@ public class NewZeit {
 		int i = java.lang.Math.toIntExact(ChronoUnit.MINUTES.between(z1.time,z2.time));
 		return java.lang.Math.toIntExact(ChronoUnit.MINUTES.between(z1.time,z2.time));
 	}
+	public static int differenzinSekunden(NewZeit z1, NewZeit z2)
+	{
+		long f = ChronoUnit.MINUTES.between(z1.time,z2.time);
+		int i = java.lang.Math.toIntExact(ChronoUnit.SECONDS.between(z1.time,z2.time));
+		return java.lang.Math.toIntExact(ChronoUnit.SECONDS.between(z1.time,z2.time));
+	}
 
 	public void add(int hours, int min) {
 		LocalTime newTimeMin = time.plusMinutes(min);

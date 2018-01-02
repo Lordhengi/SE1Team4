@@ -1,12 +1,42 @@
 <ParkhausAutoSoftware.Parkhaus>
   <name>Test</name>
-  <ticketautomaten/>
-  <etagen/>
+  <ticketautomaten>
+    <ParkhausAutoSoftware.Ticketautomat>
+      <tickets>
+        <ParkhausAutoSoftware.Ticket>
+          <id>dd7087cb-ddd0-4518-b8da-f309152e32bc</id>
+          <entwertet>true</entwertet>
+          <einfahrt>
+            <time>23:56:51.655</time>
+          </einfahrt>
+          <ausfahrt>
+            <time>23:57:10.089</time>
+          </ausfahrt>
+          <preiseinfahrt>0.0</preiseinfahrt>
+        </ParkhausAutoSoftware.Ticket>
+      </tickets>
+    </ParkhausAutoSoftware.Ticketautomat>
+  </ticketautomaten>
+  <etagen>
+    <ParkhausAutoSoftware.Etage>
+      <name>Etage 1</name>
+      <plaetze>30</plaetze>
+      <belegt>0</belegt>
+    </ParkhausAutoSoftware.Etage>
+  </etagen>
   <mitarbeiter/>
-  <kunden/>
+  <kunden>
+    <ParkhausAutoSoftware.Kunde>
+      <tickets>
+        <ParkhausAutoSoftware.Ticket reference="../../../../ticketautomaten/ParkhausAutoSoftware.Ticketautomat/tickets/ParkhausAutoSoftware.Ticket"/>
+      </tickets>
+      <id>0</id>
+      <parkt>false</parkt>
+    </ParkhausAutoSoftware.Kunde>
+  </kunden>
   <manager>
     <name>Test</name>
     <arbeit>Manager</arbeit>
-    <preis>0.0</preis>
+    <preis>1000.0</preis>
   </manager>
 </ParkhausAutoSoftware.Parkhaus>

@@ -103,7 +103,7 @@ public class Parkhaus {
 			Kunde k = new Kunde(ticketautomaten.get(nr).create(this), kid, parkEtage);
 			kunden.add(k);
 		} else {
-			getKunde(kid).addTicketAndSetParktTrue(ticketautomaten.get(nr).create(this));
+			getKunde(kid).addTicketAndSetParktTrue(ticketautomaten.get(nr).create(this), parkEtage);
 		}
 	}
 	

@@ -13,8 +13,7 @@ public class Kunde {
 	
 	public Kunde(Ticket t,int id, Etage parkEtage) {
 		tickets = new ArrayList<Ticket>();
-		addTicketAndSetParktTrue(t);
-		this.parkEtage = parkEtage;
+		addTicketAndSetParktTrue(t, parkEtage);
 		this.id = id;
 	}
 	
@@ -48,8 +47,9 @@ public class Kunde {
 		return id;
 	}
 	
-	public void addTicketAndSetParktTrue(Ticket t) {
+	public void addTicketAndSetParktTrue(Ticket t, Etage parkEtage) {
 		tickets.add(t);
+		this.parkEtage = parkEtage;
 		setParkt(true);
 	}
 	

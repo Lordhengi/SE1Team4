@@ -14,6 +14,14 @@
           </ausfahrt>
           <preiseinfahrt>0.0</preiseinfahrt>
         </ParkhausAutoSoftware.Ticket>
+        <ParkhausAutoSoftware.Ticket>
+          <id>ca67538e-90f4-4823-8185-374448ce9903</id>
+          <entwertet>false</entwertet>
+          <einfahrt>
+            <time>00:40:04.249</time>
+          </einfahrt>
+          <preiseinfahrt>1000.0</preiseinfahrt>
+        </ParkhausAutoSoftware.Ticket>
       </tickets>
     </ParkhausAutoSoftware.Ticketautomat>
   </ticketautomaten>
@@ -21,7 +29,7 @@
     <ParkhausAutoSoftware.Etage>
       <name>Etage 1</name>
       <plaetze>30</plaetze>
-      <belegt>0</belegt>
+      <belegt>1</belegt>
     </ParkhausAutoSoftware.Etage>
   </etagen>
   <mitarbeiter/>
@@ -29,9 +37,11 @@
     <ParkhausAutoSoftware.Kunde>
       <tickets>
         <ParkhausAutoSoftware.Ticket reference="../../../../ticketautomaten/ParkhausAutoSoftware.Ticketautomat/tickets/ParkhausAutoSoftware.Ticket"/>
+        <ParkhausAutoSoftware.Ticket reference="../../../../ticketautomaten/ParkhausAutoSoftware.Ticketautomat/tickets/ParkhausAutoSoftware.Ticket[2]"/>
       </tickets>
       <id>0</id>
-      <parkt>false</parkt>
+      <parkt>true</parkt>
+      <parkEtage reference="../../../etagen/ParkhausAutoSoftware.Etage"/>
     </ParkhausAutoSoftware.Kunde>
   </kunden>
   <manager>

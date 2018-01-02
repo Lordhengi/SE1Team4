@@ -57,7 +57,7 @@ public class AkutellerPreisFenster extends JFrame implements Runnable {
 			}
 		});
 		btnSchliessen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnSchliessen.setBounds(321, 105, 89, 23);
+		btnSchliessen.setBounds(306, 105, 118, 23);
 		contentPane.add(btnSchliessen);
 		
 		JLabel lblPreis = new JLabel("Preis:");

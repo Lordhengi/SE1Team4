@@ -11,6 +11,7 @@ import javax.swing.table.TableModel;
 
 import com.thoughtworks.xstream.XStream;
 
+import ParkhausAutoSoftware.Fenster.AkutellerPreisFenster;
 import ParkhausAutoSoftware.Fenster.KundenFenster;
 import ParkhausAutoSoftware.Fenster.ParkhausAnlegen;
 
@@ -409,6 +410,18 @@ public class Start extends JFrame {
 				frame.setVisible(true);
 			} catch (Exception e2) {
 				e2.printStackTrace();
+			}
+			for(Kunde k : p.getKunden())
+			{
+				if(k.getParkt())
+				{
+					try {
+						AkutellerPreisFenster frame = new AkutellerPreisFenster(k);
+						frame.setVisible(true);
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+				}
 			}
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();

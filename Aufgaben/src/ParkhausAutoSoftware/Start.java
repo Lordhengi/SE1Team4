@@ -474,7 +474,7 @@ public class Start extends JFrame {
 		}
 	}
 	
-	public void plusGeld(float f) {
+	public static void plusGeld(float f) {
 		tag += f;
 		woche += f;
 	}

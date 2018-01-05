@@ -526,7 +526,11 @@ public class Start extends JFrame implements Runnable{
 				}
 				newTag();
 			}
-			
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 		
 	}

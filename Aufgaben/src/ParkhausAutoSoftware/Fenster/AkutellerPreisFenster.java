@@ -97,6 +97,11 @@ public class AkutellerPreisFenster extends JFrame implements Runnable {
 			{
 				this.dispose();
 			}
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

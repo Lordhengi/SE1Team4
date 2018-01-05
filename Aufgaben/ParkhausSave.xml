@@ -1,22 +1,137 @@
 <ParkhausAutoSoftware.Parkhaus>
-  <name>Parkhaus</name>
+  <name>s&lt;gbydfb</name>
   <ticketautomaten>
     <ParkhausAutoSoftware.Ticketautomat>
-      <tickets/>
+      <tickets>
+        <ParkhausAutoSoftware.Ticket>
+          <id>cea13b63-570a-4fc9-94b0-4670b8d785b7</id>
+          <entwertet>true</entwertet>
+          <einfahrt>
+            <time>2018-01-05T18:36:39.724</time>
+          </einfahrt>
+          <ausfahrt>
+            <time>2018-01-05T18:37:56.547</time>
+          </ausfahrt>
+          <preiseinfahrt>5486698.0</preiseinfahrt>
+        </ParkhausAutoSoftware.Ticket>
+        <ParkhausAutoSoftware.Ticket>
+          <id>d3dcf1c2-aadb-413c-a838-2f3b01d0ddba</id>
+          <entwertet>true</entwertet>
+          <einfahrt>
+            <time>2018-01-05T18:36:55.34</time>
+          </einfahrt>
+          <ausfahrt>
+            <time>2018-01-05T18:37:51.526</time>
+          </ausfahrt>
+          <preiseinfahrt>5486698.0</preiseinfahrt>
+        </ParkhausAutoSoftware.Ticket>
+        <ParkhausAutoSoftware.Ticket>
+          <id>ad66bdd1-5f9a-4ccf-8d96-1f90eeda4d5c</id>
+          <entwertet>true</entwertet>
+          <einfahrt>
+            <time>2018-01-05T18:37:29.581</time>
+          </einfahrt>
+          <ausfahrt>
+            <time>2018-01-05T18:37:47.497</time>
+          </ausfahrt>
+          <preiseinfahrt>5486698.0</preiseinfahrt>
+        </ParkhausAutoSoftware.Ticket>
+        <ParkhausAutoSoftware.Ticket>
+          <id>07a69306-9341-4ae4-a5fd-22b563a3dd80</id>
+          <entwertet>true</entwertet>
+          <einfahrt>
+            <time>2018-01-05T18:38:01.692</time>
+          </einfahrt>
+          <ausfahrt>
+            <time>2018-01-05T18:38:20.072</time>
+          </ausfahrt>
+          <preiseinfahrt>5486698.0</preiseinfahrt>
+        </ParkhausAutoSoftware.Ticket>
+        <ParkhausAutoSoftware.Ticket>
+          <id>fda73f3d-1b50-4daf-8d35-4be0c781193f</id>
+          <entwertet>false</entwertet>
+          <einfahrt>
+            <time>2018-01-05T18:38:33.577</time>
+          </einfahrt>
+          <preiseinfahrt>5486698.0</preiseinfahrt>
+        </ParkhausAutoSoftware.Ticket>
+        <ParkhausAutoSoftware.Ticket>
+          <id>b5abb563-761d-4d9e-9f13-1545c59cc17b</id>
+          <entwertet>false</entwertet>
+          <einfahrt>
+            <time>2018-01-05T18:40:04.015</time>
+          </einfahrt>
+          <preiseinfahrt>5486698.0</preiseinfahrt>
+        </ParkhausAutoSoftware.Ticket>
+        <ParkhausAutoSoftware.Ticket>
+          <id>cfbe26af-a9a1-4dbd-b0a1-d6a325d2c5c9</id>
+          <entwertet>false</entwertet>
+          <einfahrt>
+            <time>2018-01-05T18:40:15.708</time>
+          </einfahrt>
+          <preiseinfahrt>5486698.0</preiseinfahrt>
+        </ParkhausAutoSoftware.Ticket>
+        <ParkhausAutoSoftware.Ticket>
+          <id>15fcc389-496e-41ce-880a-198e3bff5cb7</id>
+          <entwertet>false</entwertet>
+          <einfahrt>
+            <time>2018-01-05T18:40:21.802</time>
+          </einfahrt>
+          <preiseinfahrt>5486698.0</preiseinfahrt>
+        </ParkhausAutoSoftware.Ticket>
+      </tickets>
     </ParkhausAutoSoftware.Ticketautomat>
   </ticketautomaten>
   <etagen>
     <ParkhausAutoSoftware.Etage>
-      <name>Etage 1</name>
-      <plaetze>30</plaetze>
-      <belegt>0</belegt>
+      <name>&lt;bxb</name>
+      <plaetze>346</plaetze>
+      <belegt>4</belegt>
     </ParkhausAutoSoftware.Etage>
   </etagen>
   <mitarbeiter/>
-  <kunden/>
+  <kunden>
+    <ParkhausAutoSoftware.Kunde>
+      <tickets>
+        <ParkhausAutoSoftware.Ticket reference="../../../../ticketautomaten/ParkhausAutoSoftware.Ticketautomat/tickets/ParkhausAutoSoftware.Ticket"/>
+        <ParkhausAutoSoftware.Ticket reference="../../../../ticketautomaten/ParkhausAutoSoftware.Ticketautomat/tickets/ParkhausAutoSoftware.Ticket[4]"/>
+        <ParkhausAutoSoftware.Ticket reference="../../../../ticketautomaten/ParkhausAutoSoftware.Ticketautomat/tickets/ParkhausAutoSoftware.Ticket[5]"/>
+      </tickets>
+      <id>0</id>
+      <parkt>true</parkt>
+      <parkEtage reference="../../../etagen/ParkhausAutoSoftware.Etage"/>
+    </ParkhausAutoSoftware.Kunde>
+    <ParkhausAutoSoftware.Kunde>
+      <tickets>
+        <ParkhausAutoSoftware.Ticket reference="../../../../ticketautomaten/ParkhausAutoSoftware.Ticketautomat/tickets/ParkhausAutoSoftware.Ticket[2]"/>
+        <ParkhausAutoSoftware.Ticket reference="../../../../ticketautomaten/ParkhausAutoSoftware.Ticketautomat/tickets/ParkhausAutoSoftware.Ticket[6]"/>
+      </tickets>
+      <id>1</id>
+      <parkt>true</parkt>
+      <parkEtage reference="../../../etagen/ParkhausAutoSoftware.Etage"/>
+    </ParkhausAutoSoftware.Kunde>
+    <ParkhausAutoSoftware.Kunde>
+      <tickets>
+        <ParkhausAutoSoftware.Ticket reference="../../../../ticketautomaten/ParkhausAutoSoftware.Ticketautomat/tickets/ParkhausAutoSoftware.Ticket[3]"/>
+        <ParkhausAutoSoftware.Ticket reference="../../../../ticketautomaten/ParkhausAutoSoftware.Ticketautomat/tickets/ParkhausAutoSoftware.Ticket[7]"/>
+      </tickets>
+      <id>2</id>
+      <parkt>true</parkt>
+      <parkEtage reference="../../../etagen/ParkhausAutoSoftware.Etage"/>
+    </ParkhausAutoSoftware.Kunde>
+    <ParkhausAutoSoftware.Kunde>
+      <tickets>
+        <ParkhausAutoSoftware.Ticket reference="../../../../ticketautomaten/ParkhausAutoSoftware.Ticketautomat/tickets/ParkhausAutoSoftware.Ticket[8]"/>
+      </tickets>
+      <id>3</id>
+      <parkt>true</parkt>
+      <parkEtage reference="../../../etagen/ParkhausAutoSoftware.Etage"/>
+    </ParkhausAutoSoftware.Kunde>
+  </kunden>
   <manager>
-    <name>Freddy</name>
+    <name>ydbnb</name>
     <arbeit>Manager</arbeit>
-    <preis>3600.0</preis>
+    <preis>5486698.0</preis>
   </manager>
+  <kohle>254522.12</kohle>
 </ParkhausAutoSoftware.Parkhaus>

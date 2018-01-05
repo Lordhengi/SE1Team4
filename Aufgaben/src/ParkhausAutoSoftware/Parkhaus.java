@@ -67,7 +67,24 @@ public class Parkhaus {
 	}
 
 	public Ticketautomat getTicketautomat(int nr) {
-		return ticketautomaten.get(nr);
+		System.out.println("nr:"+nr);
+		System.out.println(ticketautomaten.size());
+		if(!ticketautomaten.isEmpty())
+		{
+			if(ticketautomaten.size() > nr)
+			{
+				return ticketautomaten.get(nr);
+			}
+			else
+			{
+				return null;
+			}
+		}
+		else
+		{
+			return null;
+		}
+		
 	}
 	
 	public Kunde getKunde(int id) {

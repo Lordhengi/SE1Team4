@@ -22,8 +22,12 @@ public class Ticketautomat {
 		return tickets;
 	}
 	
-	public Ticket getTicket(int id) {
+	public Ticket getTicket(UUID id) {
 		return tickets.get(id);
+	}
+	
+	public Ticket getTicket(Ticket t) {
+		return tickets.get(t.getId());
 	}
 	
 	public void entwerten(Ticket ticket) {

@@ -13,6 +13,7 @@ public class Parkhaus {
 	private List<Kunde> kunden;
 	private Manager manager;
 	
+
 	public Parkhaus(String pname, String mname, float preis) {
 		name = pname;
 		ticketautomaten = new ArrayList<Ticketautomat>();

@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import ParkhausAutoSoftware.Etage;
 import ParkhausAutoSoftware.Kunde;
 import ParkhausAutoSoftware.Parkhaus;
+import ParkhausAutoSoftware.Start;
 import ParkhausAutoSoftware.Ticket;
 import ParkhausAutoSoftware.NewZeit;
 
@@ -18,6 +19,7 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
@@ -248,8 +250,13 @@ public class KundenFenster extends JFrame{
 									int h = (int)sekunden/3600;
 									int min = sekunden-h*3600;
 									int sec = (sekunden-h*3600)-min*60;
-									DecimalFormat df = new DecimalFormat("0.00");
-									tbxPreis.setText(df.format(h*preis + min* (preis/60) + sec *(preis/3600)).toString()+"€");
+									DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(getLocale());
+									otherSymbols.setDecimalSeparator('.');
+									otherSymbols.setGroupingSeparator('.'); 
+									DecimalFormat df = new DecimalFormat("0.00", otherSymbols);
+									float x = (h*preis + min* (preis/60) + sec *(preis/3600));
+									tbxPreis.setText(df.format(x).toString()+"€");
+									Start.plusGeld(Float.parseFloat(df.format(x)));
 								}
 								else
 								{

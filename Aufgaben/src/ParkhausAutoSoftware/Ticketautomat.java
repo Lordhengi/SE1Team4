@@ -2,6 +2,7 @@ package ParkhausAutoSoftware;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Ticketautomat {
 
@@ -23,11 +24,7 @@ public class Ticketautomat {
 	}
 	
 	public Ticket getTicket(UUID id) {
-		return tickets.get(id);
-	}
-	
-	public Ticket getTicket(Ticket t) {
-		return tickets.get(t.getId());
+		return tickets.stream().filter(x -> id.toString().equals(x.getId())).findFirst().get();
 	}
 	
 	public void entwerten(Ticket ticket) {

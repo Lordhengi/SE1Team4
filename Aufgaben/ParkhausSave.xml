@@ -1,52 +1,22 @@
 <ParkhausAutoSoftware.Parkhaus>
-  <name>Test</name>
+  <name>Parkhaus</name>
   <ticketautomaten>
     <ParkhausAutoSoftware.Ticketautomat>
-      <tickets>
-        <ParkhausAutoSoftware.Ticket>
-          <id>dd7087cb-ddd0-4518-b8da-f309152e32bc</id>
-          <entwertet>true</entwertet>
-          <einfahrt>
-            <time>23:56:51.655</time>
-          </einfahrt>
-          <ausfahrt>
-            <time>23:57:10.089</time>
-          </ausfahrt>
-          <preiseinfahrt>0.0</preiseinfahrt>
-        </ParkhausAutoSoftware.Ticket>
-        <ParkhausAutoSoftware.Ticket>
-          <id>ca67538e-90f4-4823-8185-374448ce9903</id>
-          <entwertet>false</entwertet>
-          <einfahrt>
-            <time>00:40:04.249</time>
-          </einfahrt>
-          <preiseinfahrt>1000.0</preiseinfahrt>
-        </ParkhausAutoSoftware.Ticket>
-      </tickets>
+      <tickets/>
     </ParkhausAutoSoftware.Ticketautomat>
   </ticketautomaten>
   <etagen>
     <ParkhausAutoSoftware.Etage>
       <name>Etage 1</name>
       <plaetze>30</plaetze>
-      <belegt>1</belegt>
+      <belegt>0</belegt>
     </ParkhausAutoSoftware.Etage>
   </etagen>
   <mitarbeiter/>
-  <kunden>
-    <ParkhausAutoSoftware.Kunde>
-      <tickets>
-        <ParkhausAutoSoftware.Ticket reference="../../../../ticketautomaten/ParkhausAutoSoftware.Ticketautomat/tickets/ParkhausAutoSoftware.Ticket"/>
-        <ParkhausAutoSoftware.Ticket reference="../../../../ticketautomaten/ParkhausAutoSoftware.Ticketautomat/tickets/ParkhausAutoSoftware.Ticket[2]"/>
-      </tickets>
-      <id>0</id>
-      <parkt>true</parkt>
-      <parkEtage reference="../../../etagen/ParkhausAutoSoftware.Etage"/>
-    </ParkhausAutoSoftware.Kunde>
-  </kunden>
+  <kunden/>
   <manager>
-    <name>Test</name>
+    <name>Freddy</name>
     <arbeit>Manager</arbeit>
-    <preis>1000.0</preis>
+    <preis>3600.0</preis>
   </manager>
 </ParkhausAutoSoftware.Parkhaus>

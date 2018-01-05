@@ -28,6 +28,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,7 +43,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class Start extends JFrame {
+public class Start extends JFrame implements Runnable{
 
 	private JPanel contentPane;
 	public Parkhaus p;
@@ -70,11 +73,10 @@ public class Start extends JFrame {
 	private static SimpleDateFormat formata;
 	private static String akt;
 	XStream xstream = new XStream();
-	/**
-	 * @wbp.nonvisual location=-28,219
-	 */
-	private final JTextField textField = new JTextField();
 	private JTextField tbxPreis;
+	private Thread th;
+	LocalTime neu = LocalTime.of(0, 0);
+	
 
 
 	/**
@@ -86,13 +88,12 @@ public class Start extends JFrame {
 				try {
 					Start frame = new Start();
 					frame.setVisible(true);
-					tag = 0;
-					woche = 0;
 					formata = new SimpleDateFormat("EEEE, dd.MMMM yyyy");
 					formata.setTimeZone(TimeZone.getTimeZone("CET"));
 					akt = formata.format(new Date());
 					akt = akt.substring(0, 2);
 					System.out.println(akt);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -104,7 +105,6 @@ public class Start extends JFrame {
 	 * Create the frame.
 	 */
 	public Start() {
-		textField.setColumns(10);
 		setTitle("Parkhaus-Automatisierungssystem");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 689, 689);
@@ -113,6 +113,9 @@ public class Start extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		jf = this;
+		
+		tag = 0;
+		woche = 0;
 		
 		btnParkhausAnlegen = new JButton("Parkhaus anlegen");
 		btnParkhausAnlegen.addActionListener(new ActionListener() {
@@ -295,7 +298,11 @@ public class Start extends JFrame {
 		contentPane.add(tbxEtagenplaetzte);
 		
 
-
+		if(th == null)
+		{
+			th = new Thread(this);
+			th.start();
+		}
 		
 		DefaultTableModel dtmEtagen= new DefaultTableModel();
 		tblEtagen = new JTable(dtmEtagen);
@@ -393,24 +400,28 @@ public class Start extends JFrame {
 		contentPane.add(btnBtnpreisspeichern);
 		
 		lblTag = new JLabel("Einnahmen heute:");
-		lblTag.setBounds(345, 85, 149, 36);
+		lblTag.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblTag.setBounds(367, 79, 122, 36);
 		contentPane.add(lblTag);
 		
 		lblWoche = new JLabel("Einnahmen diese Woche:");
-		lblWoche.setBounds(345, 118, 149, 36);
+		lblWoche.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblWoche.setBounds(330, 118, 164, 36);
 		contentPane.add(lblWoche);
 		
 		tbxHeute = new JTextField(Float.toString(tag));
+		tbxHeute.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tbxHeute.setEditable(false);
-		tbxHeute.setBounds(501, 85, 143, 36);
+		tbxHeute.setBounds(501, 85, 143, 28);
 		contentPane.add(tbxHeute);
-		tbxHeute.setText(Float.toString(tag));
-		
+
 		tbxWoche = new JTextField(Float.toString(woche));
+		tbxWoche.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tbxWoche.setEditable(false);
-		tbxWoche.setBounds(501, 118, 143, 36);
+		tbxWoche.setBounds(501, 122, 143, 29);
 		contentPane.add(tbxWoche);
-		tbxWoche.setText(Float.toString(woche));
+
+		
 	}
 	
 	public String save() {
@@ -477,5 +488,30 @@ public class Start extends JFrame {
 	public static void plusGeld(float f) {
 		tag += f;
 		woche += f;
+	}
+
+	@Override
+	public void run() {
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		while(true)
+		{
+			tbxHeute.setText(Float.toString(tag));
+			tbxWoche.setText(Float.toString(woche));
+			if(java.lang.Math.toIntExact(ChronoUnit.MILLIS.between(neu, LocalTime.now())) < 2)
+			{
+				try {
+					Thread.sleep(5);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				newTag();
+			}
+			
+		}
+		
 	}
 }

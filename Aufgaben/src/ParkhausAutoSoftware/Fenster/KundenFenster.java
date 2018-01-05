@@ -59,7 +59,7 @@ public class KundenFenster extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				if(tbxKundenId.getText().equals("") || tbxTicketautomat.getText().equals("") || cmbxEtage.getSelectedItem().toString().equals("(Auswählen)"))
 				{
-					JOptionPane.showMessageDialog(jf, "Bitte überprüfen sie Ihre Eintgaben!","Eingaben leer oder ungültiger Wert", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(jf, "Bitte überprüfen sie Ihre Eingaben!","Eingaben leer oder ungültiger Wert", JOptionPane.ERROR_MESSAGE);
 				}
 				else
 				{
@@ -75,7 +75,7 @@ public class KundenFenster extends JFrame{
 									{
 										p.einfahren(Integer.parseInt(tbxKundenId.getText()), Integer.parseInt(tbxTicketautomat.getText()),p.getEtage(cmbxEtage.getSelectedItem().toString()));
 										try {
-											AkutellerPreisFenster frame = new AkutellerPreisFenster(p.getKunde(Integer.parseInt(tbxKundenId.getText())));
+											AktuellerPreisFenster frame = new AktuellerPreisFenster(p.getKunde(Integer.parseInt(tbxKundenId.getText())));
 											frame.setVisible(true);
 										} catch (Exception ex) {
 											ex.printStackTrace();
@@ -119,7 +119,7 @@ public class KundenFenster extends JFrame{
 								{
 									p.einfahren(Integer.parseInt(tbxKundenId.getText()), Integer.parseInt(tbxTicketautomat.getText()),p.getEtage(cmbxEtage.getSelectedItem().toString()));
 									try {
-										AkutellerPreisFenster frame = new AkutellerPreisFenster(p.getKunde(Integer.parseInt(tbxKundenId.getText())));
+										AktuellerPreisFenster frame = new AktuellerPreisFenster(p.getKunde(Integer.parseInt(tbxKundenId.getText())));
 										frame.setVisible(true);
 									} catch (Exception ex) {
 										ex.printStackTrace();
@@ -224,7 +224,7 @@ public class KundenFenster extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				if(tbxKundenId.getText().equals("") || tbxTicketautomat.getText().equals("") || cmbxEtage.getSelectedItem().toString().equals("(Auswählen)"))
 				{
-					JOptionPane.showMessageDialog(jf, "Bitte überprüfen sie Ihre Eintgaben!","Eingaben leer oder ungültiger Wert", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(jf, "Bitte überprüfen sie Ihre Eingaben!","Eingaben leer oder ungültiger Wert", JOptionPane.ERROR_MESSAGE);
 				}
 				else
 				{

@@ -11,7 +11,7 @@ import com.thoughtworks.xstream.security.NoTypePermission;
 import com.thoughtworks.xstream.security.NullPermission;
 import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
-import ParkhausAutoSoftware.Fenster.AkutellerPreisFenster;
+import ParkhausAutoSoftware.Fenster.AktuellerPreisFenster;
 import ParkhausAutoSoftware.Fenster.KundenFenster;
 import ParkhausAutoSoftware.Fenster.ParkhausAnlegen;
 
@@ -33,6 +33,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.TimeZone;
 import java.util.stream.Collectors;
 import java.awt.event.ActionEvent;
@@ -172,6 +173,13 @@ public class Start extends JFrame implements Runnable{
 		btnKundenanzeigen.setEnabled(false);
 		btnKundenanzeigen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				Set<Thread> threads = Thread.getAllStackTraces().keySet();
+				 int q = 0;
+				for (Thread t : threads) {
+				   q++; 
+				}
+				System.out.println(q);
+				
 				tblKunden.setVisible(true);
 				tblEtagen.setVisible(false);
 				tblTicketautomaten.setVisible(false);
@@ -479,7 +487,7 @@ public class Start extends JFrame implements Runnable{
 				if(k.getParkt())
 				{
 					try {
-						AkutellerPreisFenster frame = new AkutellerPreisFenster(k);
+						AktuellerPreisFenster frame = new AktuellerPreisFenster(k);
 						frame.setVisible(true);
 					} catch (Exception ex) {
 						ex.printStackTrace();

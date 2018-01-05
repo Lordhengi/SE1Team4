@@ -445,7 +445,10 @@ public class Start extends JFrame implements Runnable{
 	}
 	
 	public String save() {
-		p.setKohle(gesamt);
+		p.setgKohle(gesamt);
+		p.setTkohle(tag);
+		p.setWkohle(woche);
+		p.setEnde(NewZeit.aktuelleZeit());
 		xstream.processAnnotations(p.getClass());
 		String file = "ParkhausSave.xml";
 		try {
@@ -457,6 +460,7 @@ public class Start extends JFrame implements Runnable{
 	}
 	
 	public void load() {
+		NewZeit jetzt = NewZeit.aktuelleZeit();
 		XStream xstream = new XStream();
 		String file = "ParkhausSave.xml";
 		try {
@@ -473,9 +477,37 @@ public class Start extends JFrame implements Runnable{
 			tbxEtagenplaetzte.setEnabled(true);
 			tbxPreis.setEnabled(true);
 			tbxPreis.setText(Float.toString(p.getManager().getPreis()));
-			tag = 0;
-			woche = 0;
-			gesamt = p.getKohle();
+			gesamt = p.getgKohle();
+			int dit = NewZeit.differenzinTagen(jetzt, p.getEnde());
+			if(dit > 1) {
+				tag = 0;
+				akt = formata.format(new Date());
+				akt = akt.substring(0, 2);
+				int t;
+				if(akt.equals("Mo")) {
+					t = 0;
+				} else if(akt.equals("Di")) {
+					t = 1;
+				} else if(akt.equals("Mi")) {
+					t = 2;
+				} else if(akt.equals("Do")) {
+					t = 3;
+				} else if(akt.equals("Fr")) {
+					t = 4;
+				} else if(akt.equals("Sa")) {
+					t = 5;
+				} else {
+					t = 6;
+				}
+				if(dit < t) {
+					woche = p.getWkohle();
+				} else {
+					woche = 0;
+				}
+			} else {
+				tag = p.getTkohle();
+				woche = p.getWkohle();
+			}
 			try {
 				KundenFenster frame = new KundenFenster(p);
 				frame.setVisible(true);
@@ -515,29 +547,25 @@ public class Start extends JFrame implements Runnable{
 
 	@Override
 	public void run() {
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		
 		while(true)
 		{
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			tbxHeute.setText(Float.toString(tag));
 			tbxWoche.setText(Float.toString(woche));
 			tbxGesamt.setText(Float.toString(gesamt));
-			if(java.lang.Math.toIntExact(ChronoUnit.MILLIS.between(neu, LocalTime.now())) < 2)
+			if(java.lang.Math.toIntExact(ChronoUnit.MILLIS.between(neu, LocalTime.now())) < 2000)
 			{
 				try {
-					Thread.sleep(5);
+					Thread.sleep(5000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 				newTag();
-			}
-			try {
-				Thread.sleep(5000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
 			}
 		}
 		

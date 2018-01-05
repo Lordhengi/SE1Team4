@@ -12,8 +12,26 @@ public class Parkhaus {
 	private List<Mitarbeiter> mitarbeiter;
 	private List<Kunde> kunden;
 	private Manager manager;
-	private float kohle;
-	
+	private float gkohle;
+	private float tkohle;
+	private float wkohle;
+	private NewZeit ende;
+
+	public float getTkohle() {
+		return tkohle;
+	}
+
+	public void setTkohle(float tkohle) {
+		this.tkohle = tkohle;
+	}
+
+	public float getWkohle() {
+		return wkohle;
+	}
+
+	public void setWkohle(float wkohle) {
+		this.wkohle = wkohle;
+	}
 
 	public Parkhaus(String pname, String mname, float preis) {
 		name = pname;
@@ -124,12 +142,20 @@ public class Parkhaus {
 		}
 	}
 
-	public float getKohle() {
-		return kohle;
+	public float getgKohle() {
+		return gkohle;
 	}
 
-	public void setKohle(float kohle) {
-		this.kohle = kohle;
+	public void setgKohle(float kohle) {
+		this.gkohle = kohle;
+	}
+
+	public NewZeit getEnde() {
+		return ende;
+	}
+
+	public void setEnde(NewZeit ende) {
+		this.ende = ende;
 	}
 	
 	

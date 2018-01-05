@@ -4,28 +4,34 @@
     <ParkhausAutoSoftware.Ticketautomat>
       <tickets>
         <ParkhausAutoSoftware.Ticket>
-          <id>71bb5e67-310f-4dc9-aa37-87ab2e2be53d</id>
+          <id>31c5b35e-5e17-491f-9ddd-f1194ef3f7ac</id>
           <entwertet>true</entwertet>
           <einfahrt>
-            <time>2018-01-05T19:51:10.859</time>
+            <time>2018-01-05T20:30:34.811</time>
           </einfahrt>
           <ausfahrt>
-            <time>2018-01-05T19:51:27.251</time>
+            <time>2018-01-05T20:30:39.841</time>
           </ausfahrt>
-          <preiseinfahrt>2.0</preiseinfahrt>
+          <preiseinfahrt>3600.0</preiseinfahrt>
         </ParkhausAutoSoftware.Ticket>
         <ParkhausAutoSoftware.Ticket>
-          <id>4611d496-f91a-4be3-afb4-727bad20f817</id>
+          <id>b32996cf-6d3d-4c2d-b56e-d03759ef9236</id>
           <entwertet>true</entwertet>
           <einfahrt>
-            <time>2018-01-05T19:52:01.879</time>
+            <time>2018-01-05T20:30:48.977</time>
           </einfahrt>
           <ausfahrt>
-            <time>2018-01-05T19:52:22.161</time>
+            <time>2018-01-05T20:30:52.719</time>
           </ausfahrt>
-          <preiseinfahrt>2.0</preiseinfahrt>
+          <preiseinfahrt>3600.0</preiseinfahrt>
         </ParkhausAutoSoftware.Ticket>
       </tickets>
+    </ParkhausAutoSoftware.Ticketautomat>
+    <ParkhausAutoSoftware.Ticketautomat>
+      <tickets/>
+    </ParkhausAutoSoftware.Ticketautomat>
+    <ParkhausAutoSoftware.Ticketautomat>
+      <tickets/>
     </ParkhausAutoSoftware.Ticketautomat>
     <ParkhausAutoSoftware.Ticketautomat>
       <tickets/>
@@ -51,16 +57,27 @@
     <ParkhausAutoSoftware.Kunde>
       <tickets>
         <ParkhausAutoSoftware.Ticket reference="../../../../ticketautomaten/ParkhausAutoSoftware.Ticketautomat/tickets/ParkhausAutoSoftware.Ticket"/>
-        <ParkhausAutoSoftware.Ticket reference="../../../../ticketautomaten/ParkhausAutoSoftware.Ticketautomat/tickets/ParkhausAutoSoftware.Ticket[2]"/>
       </tickets>
       <id>0</id>
+      <parkt>false</parkt>
+    </ParkhausAutoSoftware.Kunde>
+    <ParkhausAutoSoftware.Kunde>
+      <tickets>
+        <ParkhausAutoSoftware.Ticket reference="../../../../ticketautomaten/ParkhausAutoSoftware.Ticketautomat/tickets/ParkhausAutoSoftware.Ticket[2]"/>
+      </tickets>
+      <id>1</id>
       <parkt>false</parkt>
     </ParkhausAutoSoftware.Kunde>
   </kunden>
   <manager>
     <name>Klaus</name>
     <arbeit>Manager</arbeit>
-    <preis>20.0</preis>
+    <preis>3600.0</preis>
   </manager>
-  <kohle>0.02</kohle>
+  <gkohle>8.0</gkohle>
+  <tkohle>8.0</tkohle>
+  <wkohle>8.0</wkohle>
+  <ende>
+    <time>2018-01-05T20:32:16.827</time>
+  </ende>
 </ParkhausAutoSoftware.Parkhaus>

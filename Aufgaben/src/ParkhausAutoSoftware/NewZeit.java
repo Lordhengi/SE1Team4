@@ -31,28 +31,20 @@ public class NewZeit {
 		time = newTimeHoures;
 	}
 	
-	public static NewZeit aktuelleZeit()
-	{
+	public static NewZeit aktuelleZeit() {
 		NewZeit z = new NewZeit(LocalDateTime.now());
 		return z;
 	}
 	
-	public static int differenzinMinuten(NewZeit z1, NewZeit z2)
-	{
-		long f = ChronoUnit.MINUTES.between(z1.time,z2.time);
-		int i = java.lang.Math.toIntExact(ChronoUnit.MINUTES.between(z1.time,z2.time));
+	public static int differenzinMinuten(NewZeit z1, NewZeit z2) {
 		return java.lang.Math.toIntExact(ChronoUnit.MINUTES.between(z1.time,z2.time));
 	}
-	public static int differenzinSekunden(NewZeit z1, NewZeit z2)
-	{
-		long f = ChronoUnit.MINUTES.between(z1.time,z2.time);
-		int i = java.lang.Math.toIntExact(ChronoUnit.SECONDS.between(z1.time,z2.time));
+	
+	public static int differenzinSekunden(NewZeit z1, NewZeit z2) {
 		return java.lang.Math.toIntExact(ChronoUnit.SECONDS.between(z1.time,z2.time));
 	}
-	public static int differenzinTagen(NewZeit z1, NewZeit z2)
-	{
-		long f = ChronoUnit.MINUTES.between(z1.time,z2.time);
-		int i = java.lang.Math.toIntExact(ChronoUnit.DAYS.between(z1.time,z2.time));
+	
+	public static int differenzinTagen(NewZeit z1, NewZeit z2) {
 		return java.lang.Math.toIntExact(ChronoUnit.DAYS.between(z1.time,z2.time));
 	}
 

@@ -1,21 +1,20 @@
 package ParkhausAutoSoftware;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.TableModel;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.security.NoTypePermission;
+import com.thoughtworks.xstream.security.NullPermission;
+import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
 import ParkhausAutoSoftware.Fenster.AkutellerPreisFenster;
 import ParkhausAutoSoftware.Fenster.KundenFenster;
 import ParkhausAutoSoftware.Fenster.ParkhausAnlegen;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -90,9 +89,6 @@ public class Start extends JFrame implements Runnable{
 					frame.setVisible(true);
 					formata = new SimpleDateFormat("EEEE, dd.MMMM yyyy");
 					formata.setTimeZone(TimeZone.getTimeZone("CET"));
-					akt = formata.format(new Date());
-					akt = akt.substring(0, 2);
-					System.out.println(akt);
 					
 				} catch (Exception e) {
 					e.printStackTrace();

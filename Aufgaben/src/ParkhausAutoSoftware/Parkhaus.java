@@ -68,8 +68,6 @@ public class Parkhaus {
 	}
 
 	public Ticketautomat getTicketautomat(int nr) {
-		System.out.println("nr:"+nr);
-		System.out.println(ticketautomaten.size());
 		if(!ticketautomaten.isEmpty())
 		{
 			if(ticketautomaten.size() > nr)

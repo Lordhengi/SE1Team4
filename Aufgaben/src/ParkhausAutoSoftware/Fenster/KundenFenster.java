@@ -1,7 +1,5 @@
 package ParkhausAutoSoftware.Fenster;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -39,7 +37,6 @@ public class KundenFenster extends JFrame{
 	private JButton btnTicketEntwerten;
 	private JTextField tbxPreis;
 	private JComboBox cmbxEtage;
-	private Thread thread = null;
 
 	
 	/**
@@ -236,11 +233,7 @@ public class KundenFenster extends JFrame{
 					{
 						if(p.getTicketautomat(Integer.parseInt(tbxTicketautomat.getText())) != null)
 						{
-							Ticket t = k.getTicket();
-//							if(p.getTicketautomat(t))
-//							{
-//							}
-//									
+							Ticket t = k.getTicket();							
 							if(k.getParkt())
 							{
 								if(!t.getEntwertet())

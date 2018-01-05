@@ -27,8 +27,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 import java.awt.event.ActionEvent;
 import javax.swing.JList;
@@ -58,6 +61,14 @@ public class Start extends JFrame {
 	private JButton btnSpeichern;
 	private JButton btnLaden;
 	private String parkhaus;
+	private JTextField tbxHeute;
+	private JTextField tbxWoche;
+	private JLabel lblTag;
+	private JLabel lblWoche;
+	private static float tag;
+	private static float woche;
+	private static SimpleDateFormat formata;
+	private static String akt;
 	XStream xstream = new XStream();
 	/**
 	 * @wbp.nonvisual location=-28,219
@@ -75,6 +86,13 @@ public class Start extends JFrame {
 				try {
 					Start frame = new Start();
 					frame.setVisible(true);
+					tag = 0;
+					woche = 0;
+					formata = new SimpleDateFormat("EEEE, dd.MMMM yyyy");
+					formata.setTimeZone(TimeZone.getTimeZone("CET"));
+					akt = formata.format(new Date());
+					akt = akt.substring(0, 2);
+					System.out.println(akt);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -374,7 +392,25 @@ public class Start extends JFrame {
 		btnBtnpreisspeichern.setBounds(397, 11, 167, 23);
 		contentPane.add(btnBtnpreisspeichern);
 		
-
+		lblTag = new JLabel("Einnahmen heute:");
+		lblTag.setBounds(345, 85, 149, 36);
+		contentPane.add(lblTag);
+		
+		lblWoche = new JLabel("Einnahmen diese Woche:");
+		lblWoche.setBounds(345, 118, 149, 36);
+		contentPane.add(lblWoche);
+		
+		tbxHeute = new JTextField(Float.toString(tag));
+		tbxHeute.setEditable(false);
+		tbxHeute.setBounds(501, 85, 143, 36);
+		contentPane.add(tbxHeute);
+		tbxHeute.setText(Float.toString(tag));
+		
+		tbxWoche = new JTextField(Float.toString(woche));
+		tbxWoche.setEditable(false);
+		tbxWoche.setBounds(501, 118, 143, 36);
+		contentPane.add(tbxWoche);
+		tbxWoche.setText(Float.toString(woche));
 	}
 	
 	public String save() {
@@ -405,6 +441,8 @@ public class Start extends JFrame {
 			tbxEtagenplaetzte.setEnabled(true);
 			tbxPreis.setEnabled(true);
 			tbxPreis.setText(Float.toString(p.getManager().getPreis()));
+			tag = 0;
+			woche = 0;
 			try {
 				KundenFenster frame = new KundenFenster(p);
 				frame.setVisible(true);
@@ -426,5 +464,18 @@ public class Start extends JFrame {
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		}
+	}
+	public void newTag() {
+		tag = 0;
+		akt = formata.format(new Date());
+		akt = akt.substring(0, 2);
+		if(akt.equals("Mo")) {
+			woche = 0;
+		}
+	}
+	
+	public void plusGeld(float f) {
+		tag += f;
+		woche += f;
 	}
 }

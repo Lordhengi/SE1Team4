@@ -12,6 +12,7 @@ public class Parkhaus {
 	private List<Mitarbeiter> mitarbeiter;
 	private List<Kunde> kunden;
 	private Manager manager;
+	private float kohle;
 	
 
 	public Parkhaus(String pname, String mname, float preis) {
@@ -121,6 +122,14 @@ public class Parkhaus {
 		} else {
 			getKunde(kid).addTicketAndSetParktTrue(ticketautomaten.get(nr).create(this), parkEtage);
 		}
+	}
+
+	public float getKohle() {
+		return kohle;
+	}
+
+	public void setKohle(float kohle) {
+		this.kohle = kohle;
 	}
 	
 	

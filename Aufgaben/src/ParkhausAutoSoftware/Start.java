@@ -69,12 +69,15 @@ public class Start extends JFrame implements Runnable{
 	private JLabel lblWoche;
 	private static float tag;
 	private static float woche;
+	private static float gesamt;
 	private static SimpleDateFormat formata;
 	private static String akt;
 	XStream xstream = new XStream();
 	private JTextField tbxPreis;
 	private Thread th;
 	LocalTime neu = LocalTime.of(0, 0);
+	private JTextField tbxGesamt;
+	private JLabel lblGesamt;
 	
 
 
@@ -112,6 +115,7 @@ public class Start extends JFrame implements Runnable{
 		
 		tag = 0;
 		woche = 0;
+		gesamt = 0;
 		
 		btnParkhausAnlegen = new JButton("Parkhaus anlegen");
 		btnParkhausAnlegen.addActionListener(new ActionListener() {
@@ -397,30 +401,43 @@ public class Start extends JFrame implements Runnable{
 		
 		lblTag = new JLabel("Einnahmen heute:");
 		lblTag.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblTag.setBounds(367, 79, 122, 36);
+		lblTag.setBounds(374, 79, 112, 23);
 		contentPane.add(lblTag);
 		
 		lblWoche = new JLabel("Einnahmen diese Woche:");
 		lblWoche.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblWoche.setBounds(330, 118, 164, 36);
+		lblWoche.setBounds(330, 112, 155, 23);
 		contentPane.add(lblWoche);
 		
 		tbxHeute = new JTextField(Float.toString(tag));
 		tbxHeute.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tbxHeute.setEditable(false);
-		tbxHeute.setBounds(501, 85, 143, 28);
+		tbxHeute.setBounds(501, 82, 143, 17);
 		contentPane.add(tbxHeute);
 
 		tbxWoche = new JTextField(Float.toString(woche));
 		tbxWoche.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tbxWoche.setEditable(false);
-		tbxWoche.setBounds(501, 122, 143, 29);
+		tbxWoche.setBounds(501, 112, 143, 23);
 		contentPane.add(tbxWoche);
+		
+		tbxGesamt = new JTextField(Float.toString(gesamt));
+		tbxGesamt.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tbxGesamt.setEditable(false);
+		tbxGesamt.setBounds(501, 148, 143, 20);
+		contentPane.add(tbxGesamt);
+		
+		lblGesamt = new JLabel();
+		lblGesamt.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblGesamt.setText("Insgesamt:");
+		lblGesamt.setBounds(420, 148, 74, 20);
+		contentPane.add(lblGesamt);
 
 		
 	}
 	
 	public String save() {
+		p.setKohle(gesamt);
 		xstream.processAnnotations(p.getClass());
 		String file = "ParkhausSave.xml";
 		try {
@@ -450,6 +467,7 @@ public class Start extends JFrame implements Runnable{
 			tbxPreis.setText(Float.toString(p.getManager().getPreis()));
 			tag = 0;
 			woche = 0;
+			gesamt = p.getKohle();
 			try {
 				KundenFenster frame = new KundenFenster(p);
 				frame.setVisible(true);
@@ -484,6 +502,7 @@ public class Start extends JFrame implements Runnable{
 	public static void plusGeld(float f) {
 		tag += f;
 		woche += f;
+		gesamt += f;
 	}
 
 	@Override
@@ -497,6 +516,7 @@ public class Start extends JFrame implements Runnable{
 		{
 			tbxHeute.setText(Float.toString(tag));
 			tbxWoche.setText(Float.toString(woche));
+			tbxGesamt.setText(Float.toString(gesamt));
 			if(java.lang.Math.toIntExact(ChronoUnit.MILLIS.between(neu, LocalTime.now())) < 2)
 			{
 				try {

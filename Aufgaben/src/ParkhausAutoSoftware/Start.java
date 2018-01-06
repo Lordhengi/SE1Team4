@@ -7,9 +7,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.security.NoTypePermission;
-import com.thoughtworks.xstream.security.NullPermission;
-import com.thoughtworks.xstream.security.PrimitiveTypePermission;
 
 import ParkhausAutoSoftware.Fenster.AktuellerPreisFenster;
 import ParkhausAutoSoftware.Fenster.KundenFenster;
@@ -27,17 +24,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import java.util.TimeZone;
-import java.util.stream.Collectors;
 import java.awt.event.ActionEvent;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextField;
@@ -45,10 +37,10 @@ import javax.swing.SwingConstants;
 
 public class Start extends JFrame implements Runnable{
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	public Parkhaus p;
 	private ParkhausAnlegen frame = null;
-	private JList listeDaten = null;
 	private JTable tblKunden;
 	private JTable tblTicketautomaten;
 	private JTable tblEtagen;
@@ -63,22 +55,22 @@ public class Start extends JFrame implements Runnable{
 	private JFrame jf;
 	private JButton btnSpeichern;
 	private JButton btnLaden;
-	private String parkhaus;
 	private JTextField tbxHeute;
 	private JTextField tbxWoche;
 	private JLabel lblTag;
 	private JLabel lblWoche;
-	private static float tag;
-	private static float woche;
-	private static float gesamt;
+	private float tag;
+	private float woche;
+	private float gesamt;
 	private static SimpleDateFormat formata;
 	private static String akt;
-	XStream xstream = new XStream();
+	private XStream xstream = new XStream();
 	private JTextField tbxPreis;
 	private Thread th;
-	LocalTime neu = LocalTime.of(0, 0);
+	private LocalTime neu = LocalTime.of(0, 0);
 	private JTextField tbxGesamt;
 	private JLabel lblGesamt;
+	private Start sthis;
 	
 
 
@@ -113,7 +105,7 @@ public class Start extends JFrame implements Runnable{
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		jf = this;
-		
+		sthis = this;
 		tag = 0;
 		woche = 0;
 		gesamt = 0;
@@ -140,7 +132,7 @@ public class Start extends JFrame implements Runnable{
 							tbxPreis.setEnabled(true);
 							tbxPreis.setText(Float.toString(p.getManager().getPreis()));
 							try {
-								KundenFenster frame = new KundenFenster(p);
+								KundenFenster frame = new KundenFenster(sthis);
 								frame.setVisible(true);
 							} catch (Exception e) {
 								e.printStackTrace();
@@ -173,12 +165,12 @@ public class Start extends JFrame implements Runnable{
 		btnKundenanzeigen.setEnabled(false);
 		btnKundenanzeigen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Set<Thread> threads = Thread.getAllStackTraces().keySet();
-				 int q = 0;
-				for (Thread t : threads) {
-				   q++; 
-				}
-				System.out.println(q);
+//				Set<Thread> threads = Thread.getAllStackTraces().keySet();
+//				 int q = 0;
+//				for (Thread t : threads) {
+//				   q++; 
+//				}
+//				System.out.println(q);
 				
 				tblKunden.setVisible(true);
 				tblEtagen.setVisible(false);
@@ -444,6 +436,38 @@ public class Start extends JFrame implements Runnable{
 		
 	}
 	
+	public float getTag() {
+		return tag;
+	}
+
+	public void setTag(float tag) {
+		this.tag = tag;
+	}
+
+	public float getWoche() {
+		return woche;
+	}
+
+	public void setWoche(float woche) {
+		this.woche = woche;
+	}
+
+	public float getGesamt() {
+		return gesamt;
+	}
+
+	public void setGesamt(float gesamt) {
+		this.gesamt = gesamt;
+	}
+
+	public LocalTime getNeu() {
+		return neu;
+	}
+
+	public void setNeu(LocalTime neu) {
+		this.neu = neu;
+	}
+
 	public String save() {
 		p.setgKohle(gesamt);
 		p.setTkohle(tag);
@@ -509,7 +533,7 @@ public class Start extends JFrame implements Runnable{
 				woche = p.getWkohle();
 			}
 			try {
-				KundenFenster frame = new KundenFenster(p);
+				KundenFenster frame = new KundenFenster(this);
 				frame.setVisible(true);
 			} catch (Exception e2) {
 				e2.printStackTrace();
@@ -539,10 +563,10 @@ public class Start extends JFrame implements Runnable{
 		}
 	}
 	
-	public static void plusGeld(float f) {
-		tag += f;
-		woche += f;
-		gesamt += f;
+	public void plusGeld(float f) {
+		this.tag += f;
+		this.woche += f;
+		this.gesamt += f;
 	}
 
 	@Override

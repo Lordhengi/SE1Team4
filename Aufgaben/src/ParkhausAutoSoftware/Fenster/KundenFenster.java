@@ -28,6 +28,7 @@ import javax.swing.event.PopupMenuEvent;
 
 public class KundenFenster extends JFrame{
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField tbxKundenId;
 	private Parkhaus p;
@@ -36,13 +37,13 @@ public class KundenFenster extends JFrame{
 	private JButton btnRausfahren;
 	private JButton btnTicketEntwerten;
 	private JTextField tbxPreis;
-	private JComboBox cmbxEtage;
+	private JComboBox<String> cmbxEtage;
 
 	
 	/**
 	 * Create the frame.
 	 */
-	public KundenFenster(Parkhaus p) {
+	public KundenFenster(Start s) {
 		setTitle("Kundeninterface");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 626, 335);
@@ -52,7 +53,7 @@ public class KundenFenster extends JFrame{
 		contentPane.setLayout(null);
 		
 		
-		this.p = p;
+		this.p = s.p;
 		jf = this;
 		JButton btnReinfahren = new JButton("Reinfahren");
 		btnReinfahren.addActionListener(new ActionListener() {
@@ -240,7 +241,8 @@ public class KundenFenster extends JFrame{
 								{
 									String erg = Ticketentwerten(t);
 									tbxPreis.setText(erg+"€");
-									Start.plusGeld(Float.parseFloat(erg));
+									s.plusGeld(Float.parseFloat(erg));
+									//Start.plusGeld(Float.parseFloat(erg));
 								}
 								else
 								{
@@ -282,7 +284,7 @@ public class KundenFenster extends JFrame{
 		tbxPreis.setBounds(210, 203, 230, 35);
 		contentPane.add(tbxPreis);
 		
-		cmbxEtage = new JComboBox();
+		cmbxEtage = new JComboBox<String>();
 		cmbxEtage.addPopupMenuListener(new PopupMenuListener() {
 			public void popupMenuCanceled(PopupMenuEvent arg0) {
 			}

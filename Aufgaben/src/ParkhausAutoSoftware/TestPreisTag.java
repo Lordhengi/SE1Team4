@@ -1,23 +1,22 @@
-package ParkhausAutoSoftware.Fenster;
+package ParkhausAutoSoftware;
 
 import static org.junit.Assert.*;
+
+import java.time.LocalTime;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import ParkhausAutoSoftware.Parkhaus;
-import ParkhausAutoSoftware.Start;
+import ParkhausAutoSoftware.Fenster.KundenFenster;
 
-
-public class AktuellerPreisFensterTest {
+public class TestPreisTag {
 	
-	private Start s;
+	private Start s  = new Start();
 	private String erg;
 	private KundenFenster kf;
 	
 	@Before
 	public void setUp() throws Exception {
-		s = new Start();
 		s.p = new Parkhaus("Parkhaus", "Freddy", 3600);
 		kf = new KundenFenster(s);
 		s.p.addTicketautomat();
@@ -62,6 +61,10 @@ public class AktuellerPreisFensterTest {
 	
 	@Test
 	public void testAktuallisierterPreis1Sek() {
+
+		
+		
+		//Kunde 0 - 1 sec geparkt
 		s.p.einfahren(0, 0,s.p.getEtage("Etage 1"));
 		assertEquals(s.p.getKunden().size(), 1);
 		assertEquals(s.p.getKunden().get(0).getId(), 0);
@@ -75,25 +78,44 @@ public class AktuellerPreisFensterTest {
 			e.printStackTrace();
 		}
 		erg = kf.Ticketentwerten(s.p.getKunde(0).getTicket());
-		assertEquals(erg, "1.00");
-	}
-	
-	@Test
-	public void testAktuallisierterPreis2Sek() {
-		s.p.einfahren(0, 0,s.p.getEtage("Etage 1"));
-		assertEquals(s.p.getKunden().size(), 1);
-		assertEquals(s.p.getKunden().get(0).getId(), 0);
-		assertEquals(s.p.getKunden().get(0).getParkEtage().getName(), "Etage 1");
-		assertEquals(s.p.getTicketautomat(0).getTickets().size(), 1);
-		assertEquals(s.p.getKunden().get(0).getTickets().size(), 1);
-		assertTrue(s.p.getKunden().get(0).getParkt());
+		s.plusGeld(Float.parseFloat(erg));
+		
+		//Kunde 1 - 2 sec geparkt
+		
+		s.p.einfahren(1, 0,s.p.getEtage("Etage 1"));
+		assertEquals(s.p.getKunden().size(), 2);
+		assertEquals(s.p.getKunden().get(1).getId(), 1);
+		assertEquals(s.p.getKunden().get(1).getParkEtage().getName(), "Etage 1");
+		assertEquals(s.p.getTicketautomat(0).getTickets().size(), 2);
+		assertEquals(s.p.getKunden().get(1).getTickets().size(), 1);
+		assertTrue(s.p.getKunden().get(1).getParkt());
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		erg = kf.Ticketentwerten(s.p.getKunde(0).getTicket());
-		assertEquals(erg, "2.00");
+		
+		erg = kf.Ticketentwerten(s.p.getKunde(1).getTicket());
+		s.plusGeld(Float.parseFloat(erg));
+		
+		System.out.println(s.getTag());
+		assertEquals(Float.toString(s.getTag()), "3.0");
+		LocalTime ti = LocalTime.now();
+		ti.plusSeconds(1);
+		s.setNeu(LocalTime.now());
+//		try {
+//			Thread.sleep(5000);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
+		System.out.println(s.getTag());
+		assertEquals(Float.toString(s.getTag()), "0.0");
+		
+	}
+	
+	@Test
+	public void testAktuallisierterPreis2Sek() {
+
 	}
 	
 	@Test
@@ -113,5 +135,4 @@ public class AktuellerPreisFensterTest {
 		erg = kf.Ticketentwerten(s.p.getKunde(0).getTicket());
 		assertEquals(erg, "3.00");
 	}
-
 }

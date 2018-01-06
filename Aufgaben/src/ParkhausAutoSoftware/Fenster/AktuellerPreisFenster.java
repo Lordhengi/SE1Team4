@@ -1,34 +1,26 @@
 package ParkhausAutoSoftware.Fenster;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
 
 import ParkhausAutoSoftware.Kunde;
 import ParkhausAutoSoftware.NewZeit;
-import ParkhausAutoSoftware.Parkhaus;
 import ParkhausAutoSoftware.Ticket;
 
 import javax.swing.JButton;
 import java.awt.Font;
 import java.text.DecimalFormat;
-import java.util.UUID;
 
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.awt.event.ActionEvent;
 
 public class AktuellerPreisFenster extends JFrame implements Runnable {
 
+	private static final long serialVersionUID = 1L;
 	private JFrame jf;
 	private JPanel contentPane;
 	private JTextField tbxPreis;

@@ -238,18 +238,9 @@ public class KundenFenster extends JFrame{
 							{
 								if(!t.getEntwertet())
 								{
-									float preis = t.getPreiseinfahrt();
-									int sekunden = NewZeit.differenzinSekunden(t.getEinfahrt(), t.ausfahrt());
-									int h = (int)sekunden/3600;
-									int min = sekunden-h*3600;
-									int sec = (sekunden-h*3600)-min*60;
-									DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(getLocale());
-									otherSymbols.setDecimalSeparator('.');
-									otherSymbols.setGroupingSeparator('.'); 
-									DecimalFormat df = new DecimalFormat("0.00", otherSymbols);
-									float x = (h*preis + min* (preis/60) + sec *(preis/3600));
-									tbxPreis.setText(df.format(x).toString()+"€");
-									Start.plusGeld(Float.parseFloat(df.format(x)));
+									String erg = Ticketentwerten(t);
+									tbxPreis.setText(erg+"€");
+									Start.plusGeld(Float.parseFloat(erg));
 								}
 								else
 								{
@@ -316,6 +307,22 @@ public class KundenFenster extends JFrame{
 		lblEtage.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblEtage.setBounds(137, 109, 49, 23);
 		contentPane.add(lblEtage);
+	}
+	
+	public String Ticketentwerten(Ticket t)
+	{
+		float preis = t.getPreiseinfahrt();
+		int sekunden = NewZeit.differenzinSekunden(t.getEinfahrt(), t.ausfahrt());
+		int h = (int)sekunden/3600;
+		int min = sekunden-h*3600;
+		int sec = (sekunden-h*3600)-min*60;
+		DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(getLocale());
+		otherSymbols.setDecimalSeparator('.');
+		otherSymbols.setGroupingSeparator('.'); 
+		DecimalFormat df = new DecimalFormat("0.00", otherSymbols);
+		float x = (h*preis + min* (preis/60) + sec *(preis/3600));
+		
+		return df.format(x).toString();
 	}
 	
 }

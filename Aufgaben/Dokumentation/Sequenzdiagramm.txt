@@ -1,0 +1,19 @@
+@startuml
+title Default Auto im Parkhaus parken
+skinparam sequenceParticipant underline
+hide footbox
+actor "k:Kunde" as K
+participant "p:Parkhaus" as P
+participant "ta:TicketAutomat" as TA
+activate K
+K -> P: Parkhaus frei?
+activate P
+alt alle Parkplaetze besetzt
+K -> TA
+activate TA
+K <-- TA: Mitteilung
+else Parkplatz frei
+K <-- TA: Ticket ausgeben
+K -> P: parken
+end
+@enduml

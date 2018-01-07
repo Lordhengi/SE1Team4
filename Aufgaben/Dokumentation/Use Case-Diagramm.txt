@@ -1,0 +1,27 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor Manager
+actor Kunde
+actor Mitarbeiter
+note "Diese Aufgabe wurde in der Gruppe bearbeitet" as N3
+rectangle Parkhausautomatisierungssystem(PAS) {
+usecase UC1 as "extension points
+--
+Hilfe beanspruchen"
+note "Condition: Fehler ist passiert und Manager ist nicht da" as N1
+note "Condition: Fehler ist passiert und Manager ist da" as N2
+Kunde -- (Fahrzeug faehrt ein)
+Kunde -- (Ticket ausgeben)
+Kunde -- (Ticket entwerten)
+Kunde -- (Ticket bezahlen)
+Kunde -- (Fahrzeug parken)
+Kunde -- (Fahrzeug raus fahren)
+(Fahrzeug raus fahren) .> (Ticket entwerten) : <<include>>
+(Ticket entwerten) .> (Ticket bezahlen) : <<include>>
+Manager .. N2
+N2 .> UC1
+Mitarbeiter .. N1
+N1 .> UC1
+}
+@enduml

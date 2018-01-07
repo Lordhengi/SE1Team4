@@ -1,0 +1,20 @@
+@startuml
+title UC _Parkhaus verlassen_
+
+(*) --> "Ticket entwerten"
+--> "Ticket bezahlen"
+
+if "bezahlt" then
+
+-->[true] "Schranke oeffnet sich"
+--> "darf rausfahren"
+--> "Schranke schliesst sich"
+-right-> (*)
+
+else
+
+->[false] "Security wird gerufen"
+-->[Ending process] (*)
+endif
+
+@enduml

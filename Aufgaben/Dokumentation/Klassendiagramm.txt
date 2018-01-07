@@ -1,0 +1,53 @@
+@startuml
+
+note "Diese Aufgabe wurde in der Gruppe bearbeitet" as n3
+
+class Parkhaus {
+  name : String
+  ticketautomaten : Ticketautomat[]
+  etagen : Etage[]
+  mitarbeiter : Mitarbeiter[]
+  manager : Manager
+}
+
+class Mitarbeiter {
+  name : String
+  arbeit : enum
+}
+
+class Manager {
+  preis : Float
+}
+
+class Kunde {
+  ticket : Ticket
+}
+
+class Ticketautomat {
+  ticket : Ticket[]
+}
+
+class Ticket {
+  id : int
+  entwertet : Boolean
+  einfahrt : Time
+  ausfahrt : Time
+  preiseinfahrt : Float
+}
+
+class Etage {
+  name : String
+  plaetze : Integer
+  belegt : Integer
+}
+
+Parkhaus "1..1" --> "0..*" Kunde
+Parkhaus "1..1" --> "1..*" Ticketautomat
+Ticketautomat "1..*" --> "0..*" Ticket
+Parkhaus "1..1" --> "1..1" Manager
+Parkhaus "1..1" --> "1..*" Mitarbeiter
+Parkhaus "1..1" --> "1..*" Etage
+
+Manager -|> Mitarbeiter 
+
+@enduml

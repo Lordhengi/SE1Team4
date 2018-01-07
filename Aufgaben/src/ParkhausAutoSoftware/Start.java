@@ -62,8 +62,8 @@ public class Start extends JFrame implements Runnable{
 	private float tag;
 	private float woche;
 	private float gesamt;
-	private static SimpleDateFormat formata;
-	private static String akt;
+	private SimpleDateFormat formata;
+	private String akt;
 	private XStream xstream = new XStream();
 	private JTextField tbxPreis;
 	private Thread th;
@@ -82,10 +82,7 @@ public class Start extends JFrame implements Runnable{
 			public void run() {
 				try {
 					Start frame = new Start();
-					frame.setVisible(true);
-					formata = new SimpleDateFormat("EEEE, dd.MMMM yyyy");
-					formata.setTimeZone(TimeZone.getTimeZone("CET"));
-					
+					frame.setVisible(true);				
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -556,6 +553,8 @@ public class Start extends JFrame implements Runnable{
 	}
 	public void newTag() {
 		tag = 0;
+		formata = new SimpleDateFormat("EEEE, dd.MMMM yyyy");
+		formata.setTimeZone(TimeZone.getTimeZone("CET"));
 		akt = formata.format(new Date());
 		akt = akt.substring(0, 2);
 		if(akt.equals("Mo")) {

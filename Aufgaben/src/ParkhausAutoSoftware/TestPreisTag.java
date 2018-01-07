@@ -100,39 +100,9 @@ public class TestPreisTag {
 		
 		System.out.println(s.getTag());
 		assertEquals(Float.toString(s.getTag()), "3.0");
-		LocalTime ti = LocalTime.now();
-		ti.plusSeconds(1);
-		s.setNeu(LocalTime.now());
-//		try {
-//			Thread.sleep(5000);
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
+		s.newTag();
 		System.out.println(s.getTag());
 		assertEquals(Float.toString(s.getTag()), "0.0");
 		
-	}
-	
-	@Test
-	public void testAktuallisierterPreis2Sek() {
-
-	}
-	
-	@Test
-	public void testAktuallisierterPreis3Sek() {
-		s.p.einfahren(0, 0,s.p.getEtage("Etage 1"));
-		assertEquals(s.p.getKunden().size(), 1);
-		assertEquals(s.p.getKunden().get(0).getId(), 0);
-		assertEquals(s.p.getKunden().get(0).getParkEtage().getName(), "Etage 1");
-		assertEquals(s.p.getTicketautomat(0).getTickets().size(), 1);
-		assertEquals(s.p.getKunden().get(0).getTickets().size(), 1);
-		assertTrue(s.p.getKunden().get(0).getParkt());
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		erg = kf.Ticketentwerten(s.p.getKunde(0).getTicket());
-		assertEquals(erg, "3.00");
 	}
 }

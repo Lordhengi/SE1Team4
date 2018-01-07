@@ -500,7 +500,8 @@ public class Start extends JFrame implements Runnable{
 			tbxPreis.setText(Float.toString(p.getManager().getPreis()));
 			gesamt = p.getgKohle();
 			int dit = NewZeit.differenzinTagen(jetzt, p.getEnde());
-			if(dit > 1) {
+			dit = Math.abs(dit);
+			if(dit > 0) {
 				tag = 0;
 				akt = formata.format(new Date());
 				akt = akt.substring(0, 2);
@@ -520,7 +521,7 @@ public class Start extends JFrame implements Runnable{
 				} else {
 					t = 6;
 				}
-				if(dit < t) {
+				if(dit <= t) {
 					woche = p.getWkohle();
 				} else {
 					woche = 0;
@@ -550,7 +551,11 @@ public class Start extends JFrame implements Runnable{
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		}
+		tbxHeute.setText(Float.toString(tag));
+		tbxWoche.setText(Float.toString(woche));
+		tbxGesamt.setText(Float.toString(gesamt));
 	}
+	
 	public void newTag() {
 		tag = 0;
 		formata = new SimpleDateFormat("EEEE, dd.MMMM yyyy");
@@ -560,27 +565,28 @@ public class Start extends JFrame implements Runnable{
 		if(akt.equals("Mo")) {
 			woche = 0;
 		}
+		tbxHeute.setText(Float.toString(tag));
+		tbxWoche.setText(Float.toString(woche));
 	}
 	
 	public void plusGeld(float f) {
 		this.tag += f;
 		this.woche += f;
 		this.gesamt += f;
+		tbxHeute.setText(Float.toString(tag));
+		tbxWoche.setText(Float.toString(woche));
+		tbxGesamt.setText(Float.toString(gesamt));
 	}
 
 	@Override
 	public void run() {
 		
-		while(true)
-		{
+		while(true) {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			tbxHeute.setText(Float.toString(tag));
-			tbxWoche.setText(Float.toString(woche));
-			tbxGesamt.setText(Float.toString(gesamt));
 			if(java.lang.Math.toIntExact(ChronoUnit.MILLIS.between(neu, LocalTime.now())) < 2000)
 			{
 				try {

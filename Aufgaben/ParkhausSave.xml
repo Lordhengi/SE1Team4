@@ -25,6 +25,17 @@
           </ausfahrt>
           <preiseinfahrt>3600.0</preiseinfahrt>
         </ParkhausAutoSoftware.Ticket>
+        <ParkhausAutoSoftware.Ticket>
+          <id>1549abc9-5064-438f-9fbd-ac1c1dfd184f</id>
+          <entwertet>true</entwertet>
+          <einfahrt>
+            <time>2018-01-07T11:16:31.354</time>
+          </einfahrt>
+          <ausfahrt>
+            <time>2018-01-07T11:16:44.442</time>
+          </ausfahrt>
+          <preiseinfahrt>3600.0</preiseinfahrt>
+        </ParkhausAutoSoftware.Ticket>
       </tickets>
     </ParkhausAutoSoftware.Ticketautomat>
     <ParkhausAutoSoftware.Ticketautomat>
@@ -57,6 +68,7 @@
     <ParkhausAutoSoftware.Kunde>
       <tickets>
         <ParkhausAutoSoftware.Ticket reference="../../../../ticketautomaten/ParkhausAutoSoftware.Ticketautomat/tickets/ParkhausAutoSoftware.Ticket"/>
+        <ParkhausAutoSoftware.Ticket reference="../../../../ticketautomaten/ParkhausAutoSoftware.Ticketautomat/tickets/ParkhausAutoSoftware.Ticket[3]"/>
       </tickets>
       <id>0</id>
       <parkt>false</parkt>
@@ -74,10 +86,10 @@
     <arbeit>Manager</arbeit>
     <preis>3600.0</preis>
   </manager>
-  <gkohle>8.0</gkohle>
-  <tkohle>8.0</tkohle>
-  <wkohle>8.0</wkohle>
+  <gkohle>21.0</gkohle>
+  <tkohle>13.0</tkohle>
+  <wkohle>21.0</wkohle>
   <ende>
-    <time>2018-01-05T20:32:16.827</time>
+    <time>2018-01-07T11:16:47.888</time>
   </ende>
 </ParkhausAutoSoftware.Parkhaus>

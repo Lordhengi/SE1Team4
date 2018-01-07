@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.thoughtworks.xstream.XStream;
 
@@ -13,12 +15,14 @@ import ParkhausAutoSoftware.Fenster.KundenFenster;
 import ParkhausAutoSoftware.Fenster.ParkhausAnlegen;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -71,6 +75,8 @@ public class Start extends JFrame implements Runnable{
 	private JTextField tbxGesamt;
 	private JLabel lblGesamt;
 	private Start sthis;
+	private String fileName = "ParkhausSave";
+	
 	
 
 
@@ -106,6 +112,35 @@ public class Start extends JFrame implements Runnable{
 		tag = 0;
 		woche = 0;
 		gesamt = 0;
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent arg0) {
+				
+			}
+			@Override
+			public void windowClosing(WindowEvent e) {
+				if(p != null)
+				{
+					int dialogResult = JOptionPane.showConfirmDialog(jf, "Möchten sie speichern?","Speichern", JOptionPane.ERROR_MESSAGE);
+					if(dialogResult == JOptionPane.YES_OPTION)
+					{
+						save();
+						System.exit(0);
+					}
+					else
+					{
+						System.exit(0);
+					}
+				}
+				else
+				{
+					System.exit(0);
+				}
+				
+			}
+		});
 		
 		btnParkhausAnlegen = new JButton("Parkhaus anlegen");
 		btnParkhausAnlegen.addActionListener(new ActionListener() {
@@ -162,13 +197,6 @@ public class Start extends JFrame implements Runnable{
 		btnKundenanzeigen.setEnabled(false);
 		btnKundenanzeigen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-//				Set<Thread> threads = Thread.getAllStackTraces().keySet();
-//				 int q = 0;
-//				for (Thread t : threads) {
-//				   q++; 
-//				}
-//				System.out.println(q);
-				
 				tblKunden.setVisible(true);
 				tblEtagen.setVisible(false);
 				tblTicketautomaten.setVisible(false);
@@ -471,89 +499,108 @@ public class Start extends JFrame implements Runnable{
 		p.setWkohle(woche);
 		p.setEnde(NewZeit.aktuelleZeit());
 		xstream.processAnnotations(p.getClass());
-		String file = "ParkhausSave.xml";
-		try {
-			xstream.toXML(p, new FileWriter(file));
-		} catch (IOException e1) {
-			e1.printStackTrace();
+		String sfile = JOptionPane.showInputDialog("Dateiname", fileName);
+		if(sfile != null)
+		{
+			sfile += ".xml";
+			try {
+				xstream.toXML(p, new FileWriter(sfile));
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			return xstream.toXML(p);
 		}
-		return xstream.toXML(p);
+		else
+		{
+			return null;
+		}
 	}
 	
 	public void load() {
 		NewZeit jetzt = NewZeit.aktuelleZeit();
 		XStream xstream = new XStream();
-		String file = "ParkhausSave.xml";
-		try {
-			p = (Parkhaus) xstream.fromXML(new FileReader(file));
-			btnEtageErstellen.setEnabled(true);
-			btnEtagenAnzeigen.setEnabled(true);
-			btnKundenanzeigen.setEnabled(true);
-			btnLaden.setEnabled(false);
-			btnSpeichern.setEnabled(true);
-			btnParkhausAnlegen.setEnabled(false);
-			btnTicketautomatenAnzeigen.setEnabled(true);
-			btnTicketautomatenerstellen.setEnabled(true);
-			tbxEtagenname.setEnabled(true);
-			tbxEtagenplaetzte.setEnabled(true);
-			tbxPreis.setEnabled(true);
-			tbxPreis.setText(Float.toString(p.getManager().getPreis()));
-			gesamt = p.getgKohle();
-			int dit = NewZeit.differenzinTagen(jetzt, p.getEnde());
-			dit = Math.abs(dit);
-			if(dit > 0) {
-				tag = 0;
-				akt = formata.format(new Date());
-				akt = akt.substring(0, 2);
-				int t;
-				if(akt.equals("Mo")) {
-					t = 0;
-				} else if(akt.equals("Di")) {
-					t = 1;
-				} else if(akt.equals("Mi")) {
-					t = 2;
-				} else if(akt.equals("Do")) {
-					t = 3;
-				} else if(akt.equals("Fr")) {
-					t = 4;
-				} else if(akt.equals("Sa")) {
-					t = 5;
-				} else {
-					t = 6;
-				}
-				if(dit <= t) {
-					woche = p.getWkohle();
-				} else {
-					woche = 0;
-				}
-			} else {
-				tag = p.getTkohle();
-				woche = p.getWkohle();
-			}
+		JFileChooser ch = new JFileChooser();
+		ch.setAcceptAllFileFilterUsed(false);
+		FileFilter ff = new FileNameExtensionFilter("Xml", "xml");
+		ch.setFileFilter(ff);
+		ch.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		ch.showOpenDialog(jf);
+		File f = ch.getSelectedFile();
+		if(f != null)
+		{
 			try {
-				KundenFenster frame = new KundenFenster(this);
-				frame.setVisible(true);
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-			for(Kunde k : p.getKunden())
-			{
-				if(k.getParkt())
+				String file = f.getPath();
+				fileName = f.getName().substring(0, f.getName().length()-4);
+				p = (Parkhaus) xstream.fromXML(new FileReader(file));
+				btnEtageErstellen.setEnabled(true);
+				btnEtagenAnzeigen.setEnabled(true);
+				btnKundenanzeigen.setEnabled(true);
+				btnLaden.setEnabled(false);
+				btnSpeichern.setEnabled(true);
+				btnParkhausAnlegen.setEnabled(false);
+				btnTicketautomatenAnzeigen.setEnabled(true);
+				btnTicketautomatenerstellen.setEnabled(true);
+				tbxEtagenname.setEnabled(true);
+				tbxEtagenplaetzte.setEnabled(true);
+				tbxPreis.setEnabled(true);
+				tbxPreis.setText(Float.toString(p.getManager().getPreis()));
+				gesamt = p.getgKohle();
+				int dit = NewZeit.differenzinTagen(jetzt, p.getEnde());
+				dit = Math.abs(dit);
+				if(dit > 0) {
+					tag = 0;
+					akt = formata.format(new Date());
+					akt = akt.substring(0, 2);
+					int t;
+					if(akt.equals("Mo")) {
+						t = 0;
+					} else if(akt.equals("Di")) {
+						t = 1;
+					} else if(akt.equals("Mi")) {
+						t = 2;
+					} else if(akt.equals("Do")) {
+						t = 3;
+					} else if(akt.equals("Fr")) {
+						t = 4;
+					} else if(akt.equals("Sa")) {
+						t = 5;
+					} else {
+						t = 6;
+					}
+					if(dit <= t) {
+						woche = p.getWkohle();
+					} else {
+						woche = 0;
+					}
+				} else {
+					tag = p.getTkohle();
+					woche = p.getWkohle();
+				}
+				try {
+					KundenFenster frame = new KundenFenster(this);
+					frame.setVisible(true);
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
+				for(Kunde k : p.getKunden())
 				{
-					try {
-						AktuellerPreisFenster frame = new AktuellerPreisFenster(k);
-						frame.setVisible(true);
-					} catch (Exception ex) {
-						ex.printStackTrace();
+					if(k.getParkt())
+					{
+						try {
+							AktuellerPreisFenster frame = new AktuellerPreisFenster(k);
+							frame.setVisible(true);
+						} catch (Exception ex) {
+							ex.printStackTrace();
+						}
 					}
 				}
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
 			}
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
+			tbxHeute.setText(Float.toString(tag));
+			tbxWoche.setText(Float.toString(woche));
+			tbxGesamt.setText(Float.toString(gesamt));
 		}
-		tbxHeute.setText(Float.toString(tag));
-		tbxWoche.setText(Float.toString(woche));
-		tbxGesamt.setText(Float.toString(gesamt));
 	}
 	
 	public void newTag() {

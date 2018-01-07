@@ -61,8 +61,6 @@ public class TestPreisTag {
 	
 	@Test
 	public void testAktuallisierterPreis1Sek() {
-
-		
 		
 		//Kunde 0 - 1 sec geparkt
 		s.p.einfahren(0, 0,s.p.getEtage("Etage 1"));
@@ -100,7 +98,13 @@ public class TestPreisTag {
 		
 		System.out.println(s.getTag());
 		assertEquals(Float.toString(s.getTag()), "3.0");
-		s.newTag();
+		s.setNeu(LocalTime.now());
+		//warten wegen der sleep befehle in der run Methode beim zurücksetzten
+		try {
+			Thread.sleep(6100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		System.out.println(s.getTag());
 		assertEquals(Float.toString(s.getTag()), "0.0");
 		

@@ -26,14 +26,6 @@ public class AktuellerPreisFenster extends JFrame implements Runnable {
 	private JTextField tbxPreis;
 	private Thread th;
 	private Kunde k;
-//	private boolean isRunning;
-
-//	try {
-//		AkutellerPreisFenster frame = new AkutellerPreisFenster();
-//		frame.setVisible(true);
-//	} catch (Exception e) {
-//		e.printStackTrace();
-//	}
 	
 	public AktuellerPreisFenster(Kunde k) {
 		this.k = k;
@@ -45,15 +37,6 @@ public class AktuellerPreisFenster extends JFrame implements Runnable {
 		contentPane.setLayout(null);
 		this.setTitle("Kundennummer: "+k.getId());
 		jf = this;
-//		isRunning = true;
-		
-/*		WindowListener exitListener = new WindowAdapter() {
-
-            @Override
-            public void windowClosing(WindowEvent e) {
-               this
-            }
-        };*/
 		
 		JButton btnSchliessen = new JButton("Schlie\u00DFen");
 		btnSchliessen.addActionListener(new ActionListener() {
@@ -86,11 +69,6 @@ public class AktuellerPreisFenster extends JFrame implements Runnable {
 		
 	}
 
-/*	public int setRunning(boolean isRunning) {
-		this.isRunning = isRunning;
-		return 0;
-	}*/
-
 	@Override
 	public void run() {
 		while(true)
@@ -105,6 +83,7 @@ public class AktuellerPreisFenster extends JFrame implements Runnable {
 			tbxPreis.setText(df.format(h*preis + min* (preis/60) + sec *(preis/3600)).toString()+"€");
 			if(t.getAusfahrt() != null)
 			{
+				Thread.interrupted();
 				this.dispose();
 			}
 			try {

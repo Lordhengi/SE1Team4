@@ -1,0 +1,25 @@
+@startuml
+class Blockchain {
+  Kette : Block[]
+
+}
+class Block {
+   blocknummer : Integer
+   Nonce : Integer
+   Hash : String
+   previousHash : String
+}
+
+class Transaction{
+   Mesasage : String
+}
+
+class Mining{
+   Schwierigkeit : Integer
+   mining()
+}
+Block --> Mining
+Blockchain "1" --> "1..*" Block
+Transaction "*" --> "1" Blockchain 
+Transaction "*" --> "1.0" Block
+    @enduml

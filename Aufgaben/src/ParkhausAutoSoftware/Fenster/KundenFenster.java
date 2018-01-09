@@ -309,6 +309,21 @@ public class KundenFenster extends JFrame{
 		lblEtage.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblEtage.setBounds(137, 109, 49, 23);
 		contentPane.add(lblEtage);
+		
+		JButton btnFehlerMelden = new JButton("Fehler melden");
+		btnFehlerMelden.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					FehlerMeldungsFenster frame = new FehlerMeldungsFenster(p);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		btnFehlerMelden.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnFehlerMelden.setBounds(20, 250, 150, 35);
+		contentPane.add(btnFehlerMelden);
 	}
 	
 	public String Ticketentwerten(Ticket t)
@@ -326,5 +341,4 @@ public class KundenFenster extends JFrame{
 		
 		return df.format(x).toString();
 	}
-	
 }

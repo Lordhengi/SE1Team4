@@ -2,6 +2,7 @@ package ParkhausAutoSoftware;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class Parkhaus {
@@ -11,11 +12,23 @@ public class Parkhaus {
 	private List<Etage> etagen;
 	private List<Mitarbeiter> mitarbeiter;
 	private List<Kunde> kunden;
+	private List<ErrorMeldung> errors;
 	private Manager manager;
 	private float gkohle;
 	private float tkohle;
 	private float wkohle;
 	private NewZeit ende;
+	
+	
+	public ErrorMeldung getError(UUID id)
+	{
+		return errors.stream().filter(x -> id.toString().equals(x.getErrorId())).findFirst().get();
+	}
+	
+	public List<ErrorMeldung> getErrors()
+	{
+		return errors;
+	}
 
 	public float getTkohle() {
 		return tkohle;
@@ -38,6 +51,7 @@ public class Parkhaus {
 		ticketautomaten = new ArrayList<Ticketautomat>();
 		etagen = new ArrayList<Etage>();
 		mitarbeiter = new ArrayList<Mitarbeiter>();
+		errors = new ArrayList<ErrorMeldung>();
 		kunden = new ArrayList<Kunde>();
 		manager = new Manager(mname, "Manager", preis);
 	}

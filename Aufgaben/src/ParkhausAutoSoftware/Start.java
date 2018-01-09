@@ -38,6 +38,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.table.TableModel;
 
 public class Start extends JFrame implements Runnable{
 
@@ -76,6 +77,8 @@ public class Start extends JFrame implements Runnable{
 	private JLabel lblGesamt;
 	private Start sthis;
 	private String fileName = "ParkhausSave";
+	private JButton btnFehlerAnzeigen;
+	private JTable tblFehler;
 	
 	
 
@@ -102,7 +105,7 @@ public class Start extends JFrame implements Runnable{
 	public Start() {
 		setTitle("Parkhaus-Automatisierungssystem");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 689, 689);
+		setBounds(100, 100, 689, 734);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -190,7 +193,7 @@ public class Start extends JFrame implements Runnable{
 				"KundenId", "Tickets","Parkt"
 			}
 		));
-		tblKunden.setBounds(10, 231, 653, 393);
+		tblKunden.setBounds(10, 291, 653, 393);
 		contentPane.add(tblKunden);
 		
 		btnKundenanzeigen = new JButton("Kunden anzeigen");
@@ -235,7 +238,7 @@ public class Start extends JFrame implements Runnable{
 			}
 		});
 		btnTicketautomatenerstellen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnTicketautomatenerstellen.setBounds(10, 79, 200, 23);
+		btnTicketautomatenerstellen.setBounds(10, 148, 200, 23);
 		contentPane.add(btnTicketautomatenerstellen);
 		
 		DefaultTableModel dtmTicketautomat = new DefaultTableModel();
@@ -247,7 +250,7 @@ public class Start extends JFrame implements Runnable{
 					"TicketautomatenId"
 				}
 			));
-		tblTicketautomaten.setBounds(10, 231, 653, 393);
+		tblTicketautomaten.setBounds(10, 291, 653, 393);
 		contentPane.add(tblTicketautomaten);
 		
 		
@@ -295,31 +298,31 @@ public class Start extends JFrame implements Runnable{
 			}
 		});
 		btnEtageErstellen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnEtageErstellen.setBounds(10, 185, 200, 23);
+		btnEtageErstellen.setBounds(10, 257, 200, 23);
 		contentPane.add(btnEtageErstellen);
 		
 		tbxEtagenname = new JTextField();
 		tbxEtagenname.setEnabled(false);
 		tbxEtagenname.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tbxEtagenname.setColumns(10);
-		tbxEtagenname.setBounds(145, 113, 176, 20);
+		tbxEtagenname.setBounds(145, 189, 176, 20);
 		contentPane.add(tbxEtagenname);
 		
 		JLabel lblEtagenname = new JLabel("Etagenname:");
 		lblEtagenname.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblEtagenname.setBounds(10, 113, 143, 23);
+		lblEtagenname.setBounds(10, 189, 143, 23);
 		contentPane.add(lblEtagenname);
 		
 		JLabel lblEtagenparkpltze = new JLabel("Etagenparkpl\u00E4tze:");
 		lblEtagenparkpltze.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblEtagenparkpltze.setBounds(10, 147, 143, 23);
+		lblEtagenparkpltze.setBounds(10, 223, 143, 23);
 		contentPane.add(lblEtagenparkpltze);
 		
 		tbxEtagenplaetzte = new JTextField();
 		tbxEtagenplaetzte.setEnabled(false);
 		tbxEtagenplaetzte.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tbxEtagenplaetzte.setColumns(10);
-		tbxEtagenplaetzte.setBounds(145, 147, 176, 20);
+		tbxEtagenplaetzte.setBounds(145, 223, 176, 20);
 		contentPane.add(tbxEtagenplaetzte);
 		
 
@@ -338,7 +341,7 @@ public class Start extends JFrame implements Runnable{
 					"Etagenname","Plaetze","belegtePlaetze"
 				}
 			));
-		tblEtagen.setBounds(10, 231, 653, 393);
+		tblEtagen.setBounds(10, 291, 653, 393);
 		contentPane.add(tblEtagen);
 		
 		btnEtagenAnzeigen = new JButton("Etagen anzeigen");
@@ -383,7 +386,7 @@ public class Start extends JFrame implements Runnable{
 		});
 		btnSpeichern.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnSpeichern.setEnabled(false);
-		btnSpeichern.setBounds(501, 185, 162, 23);
+		btnSpeichern.setBounds(501, 257, 162, 23);
 		contentPane.add(btnSpeichern);
 		btnLaden = new JButton("Laden");
 		btnLaden.addActionListener(new ActionListener() {
@@ -392,7 +395,7 @@ public class Start extends JFrame implements Runnable{
 			}
 		});
 		btnLaden.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnLaden.setBounds(332, 185, 162, 23);
+		btnLaden.setBounds(332, 257, 162, 23);
 		contentPane.add(btnLaden);
 		
 		tbxPreis = new JTextField();
@@ -426,37 +429,61 @@ public class Start extends JFrame implements Runnable{
 		
 		lblTag = new JLabel("Einnahmen heute:");
 		lblTag.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblTag.setBounds(374, 79, 112, 23);
+		lblTag.setBounds(393, 148, 112, 23);
 		contentPane.add(lblTag);
 		
 		lblWoche = new JLabel("Einnahmen diese Woche:");
 		lblWoche.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblWoche.setBounds(330, 112, 155, 23);
+		lblWoche.setBounds(349, 181, 155, 23);
 		contentPane.add(lblWoche);
 		
 		tbxHeute = new JTextField(Float.toString(tag));
 		tbxHeute.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tbxHeute.setEditable(false);
-		tbxHeute.setBounds(501, 82, 143, 17);
+		tbxHeute.setBounds(520, 151, 143, 17);
 		contentPane.add(tbxHeute);
 
 		tbxWoche = new JTextField(Float.toString(woche));
 		tbxWoche.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tbxWoche.setEditable(false);
-		tbxWoche.setBounds(501, 112, 143, 23);
+		tbxWoche.setBounds(520, 181, 143, 23);
 		contentPane.add(tbxWoche);
 		
 		tbxGesamt = new JTextField(Float.toString(gesamt));
 		tbxGesamt.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tbxGesamt.setEditable(false);
-		tbxGesamt.setBounds(501, 148, 143, 20);
+		tbxGesamt.setBounds(520, 217, 143, 20);
 		contentPane.add(tbxGesamt);
 		
 		lblGesamt = new JLabel();
 		lblGesamt.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblGesamt.setText("Insgesamt:");
-		lblGesamt.setBounds(420, 148, 74, 20);
+		lblGesamt.setBounds(439, 217, 74, 20);
 		contentPane.add(lblGesamt);
+		
+		btnFehlerAnzeigen = new JButton("Fehler anzeigen");
+		btnFehlerAnzeigen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btnFehlerAnzeigen.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnFehlerAnzeigen.setEnabled(false);
+		btnFehlerAnzeigen.setBounds(10, 79, 167, 23);
+		contentPane.add(btnFehlerAnzeigen);
+		
+
+		DefaultTableModel dtmFehler= new DefaultTableModel();
+		tblFehler = new JTable(dtmFehler);
+		tblEtagen.setModel(new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+					"ID","Details"
+				}
+			));
+		tblFehler.setBounds(10, 291, 653, 393);
+		contentPane.add(tblFehler);
 
 		
 	}

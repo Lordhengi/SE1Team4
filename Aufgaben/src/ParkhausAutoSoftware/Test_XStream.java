@@ -7,6 +7,8 @@ import org.junit.Test;
 
 import com.thoughtworks.xstream.XStream;
 
+import ParkhausAutoSoftware.Fenster.Start;
+
 public class Test_XStream {
 	
 	String x1;

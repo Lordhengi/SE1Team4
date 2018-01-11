@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ParkhausAutoSoftware.Fenster.KundenFenster;
+import ParkhausAutoSoftware.Fenster.Start;
 
 public class TestPreisTag {
 	

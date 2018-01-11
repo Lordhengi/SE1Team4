@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ParkhausAutoSoftware.Parkhaus;
-import ParkhausAutoSoftware.Start;
 
 
 public class AktuellerPreisFensterTest {

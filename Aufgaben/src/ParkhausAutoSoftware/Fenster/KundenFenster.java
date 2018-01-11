@@ -8,7 +8,6 @@ import javax.swing.border.EmptyBorder;
 import ParkhausAutoSoftware.Etage;
 import ParkhausAutoSoftware.Kunde;
 import ParkhausAutoSoftware.Parkhaus;
-import ParkhausAutoSoftware.Start;
 import ParkhausAutoSoftware.Ticket;
 import ParkhausAutoSoftware.NewZeit;
 
@@ -314,7 +313,7 @@ public class KundenFenster extends JFrame{
 		btnFehlerMelden.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					FehlerMeldungsFenster frame = new FehlerMeldungsFenster(p);
+					FehlerMeldungsFenster frame = new FehlerMeldungsFenster(p, null, null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

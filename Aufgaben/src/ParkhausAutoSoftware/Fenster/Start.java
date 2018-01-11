@@ -1,18 +1,23 @@
-package ParkhausAutoSoftware;
+package ParkhausAutoSoftware.Fenster;
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.thoughtworks.xstream.XStream;
 
-import ParkhausAutoSoftware.Fenster.AktuellerPreisFenster;
-import ParkhausAutoSoftware.Fenster.KundenFenster;
-import ParkhausAutoSoftware.Fenster.ParkhausAnlegen;
+import ParkhausAutoSoftware.ErrorMeldung;
+import ParkhausAutoSoftware.Etage;
+import ParkhausAutoSoftware.Kunde;
+import ParkhausAutoSoftware.NewZeit;
+import ParkhausAutoSoftware.Parkhaus;
+import ParkhausAutoSoftware.Ticketautomat;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -33,12 +38,12 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.UUID;
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.table.TableModel;
 
 public class Start extends JFrame implements Runnable{
 
@@ -79,6 +84,7 @@ public class Start extends JFrame implements Runnable{
 	private String fileName = "ParkhausSave";
 	private JButton btnFehlerAnzeigen;
 	private JTable tblFehler;
+	private JLabel lblHinweis;
 	
 	
 
@@ -165,6 +171,7 @@ public class Start extends JFrame implements Runnable{
 							tbxEtagenname.setEnabled(true);
 							tbxEtagenplaetzte.setEnabled(true);
 							tbxPreis.setEnabled(true);
+							btnFehlerAnzeigen.setEnabled(true);
 							tbxPreis.setText(Float.toString(p.getManager().getPreis()));
 							try {
 								KundenFenster frame = new KundenFenster(sthis);
@@ -202,7 +209,9 @@ public class Start extends JFrame implements Runnable{
 			public void actionPerformed(ActionEvent arg0) {
 				tblKunden.setVisible(true);
 				tblEtagen.setVisible(false);
+				tblFehler.setVisible(false);
 				tblTicketautomaten.setVisible(false);
+				lblHinweis.setText("Zur Auswahl auf die Zeile klicken");
 				List<Kunde> kunden = p.getKunden();
 				Kunde[] oids = new Kunde[kunden.size()];
 				oids = kunden.toArray(oids);
@@ -260,6 +269,8 @@ public class Start extends JFrame implements Runnable{
 			public void actionPerformed(ActionEvent e) {
 				tblKunden.setVisible(false);
 				tblEtagen.setVisible(false);
+				tblFehler.setVisible(false);
+				lblHinweis.setText("");
 				tblTicketautomaten.setVisible(true);
 				List<Ticketautomat> listeTa = p.getTicketautomaten();
 				Ticketautomat[] oids = new Ticketautomat[listeTa.size()];
@@ -348,7 +359,9 @@ public class Start extends JFrame implements Runnable{
 		btnEtagenAnzeigen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				tblKunden.setVisible(false);
+				tblFehler.setVisible(false);
 				tblEtagen.setVisible(true);
+				lblHinweis.setText("");
 				tblTicketautomaten.setVisible(false);
 				List<Etage> etage = p.getEtagen();
 				Etage[] oids = new Etage[etage.size()];
@@ -464,7 +477,26 @@ public class Start extends JFrame implements Runnable{
 		btnFehlerAnzeigen = new JButton("Fehler anzeigen");
 		btnFehlerAnzeigen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				tblKunden.setVisible(false);
+				tblFehler.setVisible(true);
+				tblEtagen.setVisible(false);
+				tblTicketautomaten.setVisible(false);
+				lblHinweis.setText("Zur Auswahl auf die Zeile klicken");
+				List<ErrorMeldung> listeEr = p.getErrors();
+				ErrorMeldung[] oids = new ErrorMeldung[listeEr.size()];
+				oids = listeEr.toArray(oids);
+				((DefaultTableModel) tblFehler.getModel()).getDataVector().removeAllElements();
+				Object[] rowColumnName = new Object[1];
+				rowColumnName[0] = "ErrorID";
+				((DefaultTableModel) tblFehler.getModel()).addRow(rowColumnName);
 				
+				for(int i = 0; i < oids.length; i++)
+				{
+					Object[] row = new Object[1];
+					row[0] = oids[i].getErrorId();
+					((DefaultTableModel) tblFehler.getModel()).addRow(row);
+				}								
+				revalidate();
 			}
 		});
 		btnFehlerAnzeigen.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -475,15 +507,30 @@ public class Start extends JFrame implements Runnable{
 
 		DefaultTableModel dtmFehler= new DefaultTableModel();
 		tblFehler = new JTable(dtmFehler);
-		tblEtagen.setModel(new DefaultTableModel(
+		tblFehler.setModel(new DefaultTableModel(
 				new Object[][] {
 				},
 				new String[] {
-					"ID","Details"
+					"ID"
 				}
 			));
 		tblFehler.setBounds(10, 291, 653, 393);
+		tblFehler.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+	        public void valueChanged(ListSelectionEvent e) {
+	        	int selectedRow = tblFehler.getSelectedRow();
+	        	if (!e.getValueIsAdjusting() && selectedRow != -1 && selectedRow != 0) 
+	        	{	
+	        		FehlerMeldungsFenster fmf = new FehlerMeldungsFenster(p, tblFehler.getValueAt(selectedRow, 0).toString(),p.getError(UUID.fromString(tblFehler.getValueAt(selectedRow, 0).toString())).getMeldungstext());
+	        		fmf.setVisible(true);
+	        	}
+	        }
+	    });
 		contentPane.add(tblFehler);
+		
+		lblHinweis = new JLabel("");
+		lblHinweis.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblHinweis.setBounds(223, 79, 440, 23);
+		contentPane.add(lblHinweis);
 
 		
 	}
@@ -562,6 +609,7 @@ public class Start extends JFrame implements Runnable{
 				btnEtageErstellen.setEnabled(true);
 				btnEtagenAnzeigen.setEnabled(true);
 				btnKundenanzeigen.setEnabled(true);
+				btnFehlerAnzeigen.setEnabled(true);
 				btnLaden.setEnabled(false);
 				btnSpeichern.setEnabled(true);
 				btnParkhausAnlegen.setEnabled(false);

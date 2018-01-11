@@ -1,7 +1,5 @@
 package ParkhausAutoSoftware.Fenster;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -23,14 +21,12 @@ public class FehlerMeldungsFenster extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Parkhaus p;
 	private JTextArea tbxFehlermeldung;
 
 	/**
 	 * Create the frame.
 	 */
-	public FehlerMeldungsFenster(Parkhaus p) {
-		this.p = p;
+	public FehlerMeldungsFenster(Parkhaus p,String UUID, String errorText) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 604, 416);
 		contentPane = new JPanel();
@@ -38,22 +34,53 @@ public class FehlerMeldungsFenster extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnSpeichern = new JButton("Speichern");
-		btnSpeichern.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(!tbxFehlermeldung.getText().equals(""))
-				{
-					p.getErrors().add(new ErrorMeldung(tbxFehlermeldung.getText()));
-				}
-			}
-		});
-		btnSpeichern.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnSpeichern.setBounds(428, 331, 150, 35);
-		contentPane.add(btnSpeichern);
+		if(UUID.equals("") || UUID == null)
+		{
+			setTitle("Fehlerbericht senden");
+		}
+		else
+		{
+			setTitle("ErrorId: " + UUID);
+		}
 		
-		tbxFehlermeldung = new JTextArea();
-		tbxFehlermeldung.setBounds(43, 44, 485, 276);
-		contentPane.add(tbxFehlermeldung);
+		if(errorText.equals("") || errorText == null)
+		{
+			JButton btnSpeichern = new JButton("Absenden");
+			btnSpeichern.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(!tbxFehlermeldung.getText().equals(""))
+					{
+						p.getErrors().add(new ErrorMeldung(tbxFehlermeldung.getText()));
+						dispose();
+					}
+				}
+			});
+			btnSpeichern.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			btnSpeichern.setBounds(428, 331, 150, 35);
+			contentPane.add(btnSpeichern);
+		
+			tbxFehlermeldung = new JTextArea();
+			tbxFehlermeldung.setBounds(43, 44, 485, 276);
+			contentPane.add(tbxFehlermeldung);
+		}
+		else
+		{
+			JButton btnSpeichern = new JButton("Schlieﬂen");
+			btnSpeichern.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispose();				
+				}
+			});
+			btnSpeichern.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			btnSpeichern.setBounds(428, 331, 150, 35);
+			contentPane.add(btnSpeichern);
+		
+			tbxFehlermeldung = new JTextArea();
+			tbxFehlermeldung.setEditable(false);
+			tbxFehlermeldung.setBounds(43, 44, 485, 276);
+			tbxFehlermeldung.setText(errorText);
+			contentPane.add(tbxFehlermeldung);
+		}
 		
 		JLabel lblFehlermeldung = new JLabel("Fehlermeldung:");
 		lblFehlermeldung.setFont(new Font("Tahoma", Font.PLAIN, 14));

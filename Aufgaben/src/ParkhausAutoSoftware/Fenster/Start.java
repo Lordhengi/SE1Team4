@@ -110,7 +110,6 @@ public class Start extends JFrame implements Runnable{
 	 */
 	public Start() {
 		setTitle("Parkhaus-Automatisierungssystem");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 689, 734);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -174,7 +173,7 @@ public class Start extends JFrame implements Runnable{
 							btnFehlerAnzeigen.setEnabled(true);
 							tbxPreis.setText(Float.toString(p.getManager().getPreis()));
 							try {
-								KundenFenster frame = new KundenFenster(sthis);
+								KundenFenster frame = new KundenFenster(sthis);							
 								frame.setVisible(true);
 							} catch (Exception e) {
 								e.printStackTrace();
@@ -200,6 +199,19 @@ public class Start extends JFrame implements Runnable{
 				"KundenId", "Tickets","Parkt"
 			}
 		));
+		tblKunden.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+	        public void valueChanged(ListSelectionEvent e) {
+	        	int selectedRow = tblKunden.getSelectedRow();
+	        	if (!e.getValueIsAdjusting() && selectedRow != -1 && selectedRow != 0) 
+	        	{	
+	        		System.out.println(tblKunden.getValueAt(selectedRow, 0).toString());
+	        		System.out.println(Integer.parseInt(tblKunden.getValueAt(selectedRow, 0).toString()));
+	        		System.out.println(p.getKunde(Integer.parseInt(tblKunden.getValueAt(selectedRow, 0).toString())));
+	        		KundenTicketsFenster ktf = new KundenTicketsFenster(p.getKunde(Integer.parseInt(tblKunden.getValueAt(selectedRow, 0).toString())));
+	        		ktf.setVisible(true);
+	        	}
+	        }
+	    });
 		tblKunden.setBounds(10, 291, 653, 393);
 		contentPane.add(tblKunden);
 		
@@ -252,6 +264,7 @@ public class Start extends JFrame implements Runnable{
 		
 		DefaultTableModel dtmTicketautomat = new DefaultTableModel();
 		tblTicketautomaten = new JTable(dtmTicketautomat);
+		tblTicketautomaten.setEnabled(false);
 		tblTicketautomaten.setModel(new DefaultTableModel(
 				new Object[][] {
 				},
@@ -345,6 +358,7 @@ public class Start extends JFrame implements Runnable{
 		
 		DefaultTableModel dtmEtagen= new DefaultTableModel();
 		tblEtagen = new JTable(dtmEtagen);
+		tblEtagen.setEnabled(false);
 		tblEtagen.setModel(new DefaultTableModel(
 				new Object[][] {
 				},

@@ -1,11 +1,12 @@
-package ParkhausAutoSoftware.Fenster;
+package ParkhausAutoSoftware;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import ParkhausAutoSoftware.Parkhaus;
+import ParkhausAutoSoftware.Fenster.KundenFenster;
+import ParkhausAutoSoftware.Fenster.Start;
 
 
 public class AktuellerPreisFensterTest {

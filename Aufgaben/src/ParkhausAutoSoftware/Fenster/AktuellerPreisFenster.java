@@ -29,7 +29,7 @@ public class AktuellerPreisFenster extends JFrame implements Runnable {
 	
 	public AktuellerPreisFenster(Kunde k) {
 		this.k = k;
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 178);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

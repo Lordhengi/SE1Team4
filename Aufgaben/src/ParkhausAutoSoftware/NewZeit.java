@@ -56,7 +56,8 @@ public class NewZeit {
 
 	@Override
 	public String toString() {
-		return String.format("%02d:%02d", stunden(), minuten());
+		
+		return String.format("%02d.%02d.%02d %02d:%02d:%02d", time.getDayOfMonth(), time.getMonth().getValue(), time.getYear(), stunden(), minuten(), time.getSecond());
 	}
 
 	@Override

@@ -1,6 +1,6 @@
 package Aufgabe_12;
 
-public class Fahrzeug {
+public class Fahrzeug{
 	private String fahrzeugtyp;
 	private int quadratmeter;
 	

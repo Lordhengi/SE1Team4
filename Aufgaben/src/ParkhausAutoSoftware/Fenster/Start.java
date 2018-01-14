@@ -131,16 +131,17 @@ public class Start extends JFrame implements Runnable{
 			public void windowClosing(WindowEvent e) {
 				if(p != null)
 				{
-					int dialogResult = JOptionPane.showConfirmDialog(jf, "Möchten sie speichern?","Speichern", JOptionPane.ERROR_MESSAGE);
-					if(dialogResult == JOptionPane.YES_OPTION)
-					{
+					String[] options = new String[] {"Speichern und Beenden", "Beenden ohne zu Speichern", "Abbrechen"};
+					int response = JOptionPane.showOptionDialog(jf, "Möchten Sie PAS verlassen?", "Programm beenden?", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+					if(response== JOptionPane.YES_OPTION) {
 						save();
 						System.exit(0);
-					}
-					else
-					{
+					} else if(response == JOptionPane.NO_OPTION) {
 						System.exit(0);
+					} else {
+						
 					}
+					    	
 				}
 				else
 				{
@@ -204,9 +205,6 @@ public class Start extends JFrame implements Runnable{
 	        	int selectedRow = tblKunden.getSelectedRow();
 	        	if (!e.getValueIsAdjusting() && selectedRow != -1 && selectedRow != 0) 
 	        	{	
-	        		System.out.println(tblKunden.getValueAt(selectedRow, 0).toString());
-	        		System.out.println(Integer.parseInt(tblKunden.getValueAt(selectedRow, 0).toString()));
-	        		System.out.println(p.getKunde(Integer.parseInt(tblKunden.getValueAt(selectedRow, 0).toString())));
 	        		KundenTicketsFenster ktf = new KundenTicketsFenster(p.getKunde(Integer.parseInt(tblKunden.getValueAt(selectedRow, 0).toString())));
 	        		ktf.setVisible(true);
 	        	}

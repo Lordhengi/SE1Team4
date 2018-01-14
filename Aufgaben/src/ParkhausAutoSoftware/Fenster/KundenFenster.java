@@ -241,7 +241,6 @@ public class KundenFenster extends JFrame{
 									String erg = Ticketentwerten(t);
 									tbxPreis.setText(erg+"€");
 									s.plusGeld(Float.parseFloat(erg));
-									//Start.plusGeld(Float.parseFloat(erg));
 								}
 								else
 								{

@@ -85,6 +85,7 @@ public class Start extends JFrame implements Runnable{
 	private JButton btnFehlerAnzeigen;
 	private JTable tblFehler;
 	private JLabel lblHinweis;
+	private KundenTicketsFenster ktf;
 	
 	
 
@@ -205,8 +206,9 @@ public class Start extends JFrame implements Runnable{
 	        	int selectedRow = tblKunden.getSelectedRow();
 	        	if (!e.getValueIsAdjusting() && selectedRow != -1 && selectedRow != 0) 
 	        	{	
-	        		KundenTicketsFenster ktf = new KundenTicketsFenster(p.getKunde(Integer.parseInt(tblKunden.getValueAt(selectedRow, 0).toString())));
+	        		ktf = new KundenTicketsFenster(p.getKunde(Integer.parseInt(tblKunden.getValueAt(selectedRow, 0).toString())));
 	        		ktf.setVisible(true);
+	        		tblKunden.clearSelection();
 	        	}
 	        }
 	    });
@@ -534,6 +536,7 @@ public class Start extends JFrame implements Runnable{
 	        	{	
 	        		FehlerMeldungsFenster fmf = new FehlerMeldungsFenster(p, tblFehler.getValueAt(selectedRow, 0).toString(),p.getError(UUID.fromString(tblFehler.getValueAt(selectedRow, 0).toString())).getMeldungstext());
 	        		fmf.setVisible(true);
+	        		tblFehler.clearSelection();
 	        	}
 	        }
 	    });

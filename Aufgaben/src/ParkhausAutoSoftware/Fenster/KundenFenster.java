@@ -313,7 +313,7 @@ public class KundenFenster extends JFrame{
 		btnFehlerMelden.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					FehlerMeldungsFenster frame = new FehlerMeldungsFenster(p, null, null);
+					FehlerMeldungsFenster frame = new FehlerMeldungsFenster(p, "", "");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

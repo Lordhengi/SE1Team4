@@ -26,7 +26,7 @@ public class FehlerMeldungsFenster extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FehlerMeldungsFenster(Parkhaus p,String UUID, String errorText) {
+	public FehlerMeldungsFenster(Parkhaus p,String uuid, String errorText) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 604, 416);
 		contentPane = new JPanel();
@@ -34,16 +34,18 @@ public class FehlerMeldungsFenster extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		if(UUID.equals("") || UUID == null)
+		System.out.println(uuid);
+		
+		if(uuid == null || uuid == "")
 		{
 			setTitle("Fehlerbericht senden");
 		}
 		else
 		{
-			setTitle("ErrorId: " + UUID);
+			setTitle("ErrorId: " + uuid);
 		}
 		
-		if(errorText.equals("") || errorText == null)
+		if(errorText == null || errorText == "")
 		{
 			JButton btnSpeichern = new JButton("Absenden");
 			btnSpeichern.addActionListener(new ActionListener() {

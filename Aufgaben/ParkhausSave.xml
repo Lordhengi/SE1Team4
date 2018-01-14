@@ -1,0 +1,54 @@
+<ParkhausAutoSoftware.Parkhaus>
+  <name>Test</name>
+  <ticketautomaten>
+    <ParkhausAutoSoftware.Ticketautomat>
+      <tickets>
+        <ParkhausAutoSoftware.Ticket>
+          <id>72c1241e-af72-4e46-bb79-4d114e97e8f7</id>
+          <entwertet>true</entwertet>
+          <einfahrt>
+            <time>2018-01-14T13:12:15.581</time>
+          </einfahrt>
+          <ausfahrt>
+            <time>2018-01-14T13:12:32.385</time>
+          </ausfahrt>
+          <preiseinfahrt>3600.0</preiseinfahrt>
+        </ParkhausAutoSoftware.Ticket>
+      </tickets>
+    </ParkhausAutoSoftware.Ticketautomat>
+  </ticketautomaten>
+  <etagen>
+    <ParkhausAutoSoftware.Etage>
+      <name>A</name>
+      <plaetze>30</plaetze>
+      <belegt>0</belegt>
+    </ParkhausAutoSoftware.Etage>
+  </etagen>
+  <mitarbeiter/>
+  <kunden>
+    <ParkhausAutoSoftware.Kunde>
+      <tickets>
+        <ParkhausAutoSoftware.Ticket reference="../../../../ticketautomaten/ParkhausAutoSoftware.Ticketautomat/tickets/ParkhausAutoSoftware.Ticket"/>
+      </tickets>
+      <id>0</id>
+      <parkt>false</parkt>
+    </ParkhausAutoSoftware.Kunde>
+  </kunden>
+  <errors>
+    <ParkhausAutoSoftware.ErrorMeldung>
+      <errorId>deea19ad-c91e-4ee0-8d2b-1a332347bec0</errorId>
+      <meldungstext>Dies ist ein Test</meldungstext>
+    </ParkhausAutoSoftware.ErrorMeldung>
+  </errors>
+  <manager>
+    <name>Test</name>
+    <arbeit>Manager</arbeit>
+    <preis>3600.0</preis>
+  </manager>
+  <gkohle>16.0</gkohle>
+  <tkohle>16.0</tkohle>
+  <wkohle>16.0</wkohle>
+  <ende>
+    <time>2018-01-14T13:16:52.864</time>
+  </ende>
+</ParkhausAutoSoftware.Parkhaus>

@@ -197,6 +197,7 @@ public class KundenFenster extends JFrame{
 							{
 								k.setParkt(false);
 								k.setParkEtage(null);
+								JOptionPane.showMessageDialog(jf, "Schönen Tag wünschen wir Ihnen!", "Rausgefahren", JOptionPane.INFORMATION_MESSAGE);
 							}
 							else
 							{

@@ -34,8 +34,6 @@ public class FehlerMeldungsFenster extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		System.out.println(uuid);
-		
 		if(uuid == null || uuid == "")
 		{
 			setTitle("Fehlerbericht senden");

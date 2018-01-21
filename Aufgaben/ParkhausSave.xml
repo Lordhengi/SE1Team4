@@ -1,26 +1,59 @@
 <ParkhausAutoSoftware.Parkhaus>
-  <name>Test</name>
+  <name>Parkhaus an HBRS</name>
   <ticketautomaten>
     <ParkhausAutoSoftware.Ticketautomat>
       <tickets>
         <ParkhausAutoSoftware.Ticket>
-          <id>72c1241e-af72-4e46-bb79-4d114e97e8f7</id>
+          <id>9e297be1-0de6-4eeb-8475-6e28f1908141</id>
           <entwertet>true</entwertet>
           <einfahrt>
-            <time>2018-01-14T13:12:15.581</time>
+            <time>2018-01-21T16:46:35.007</time>
           </einfahrt>
           <ausfahrt>
-            <time>2018-01-14T13:12:32.385</time>
+            <time>2018-01-21T16:50:10.869</time>
+          </ausfahrt>
+          <preiseinfahrt>3600.0</preiseinfahrt>
+        </ParkhausAutoSoftware.Ticket>
+        <ParkhausAutoSoftware.Ticket>
+          <id>8cdb7445-e8ae-4cd4-8a55-f0a331df4822</id>
+          <entwertet>true</entwertet>
+          <einfahrt>
+            <time>2018-01-21T16:46:44.198</time>
+          </einfahrt>
+          <ausfahrt>
+            <time>2018-01-21T16:50:21.577</time>
+          </ausfahrt>
+          <preiseinfahrt>3600.0</preiseinfahrt>
+        </ParkhausAutoSoftware.Ticket>
+        <ParkhausAutoSoftware.Ticket>
+          <id>f9e252e3-e46d-44ec-8478-1df62b9d06b0</id>
+          <entwertet>true</entwertet>
+          <einfahrt>
+            <time>2018-01-21T16:47:02.065</time>
+          </einfahrt>
+          <ausfahrt>
+            <time>2018-01-21T16:50:26.253</time>
           </ausfahrt>
           <preiseinfahrt>3600.0</preiseinfahrt>
         </ParkhausAutoSoftware.Ticket>
       </tickets>
     </ParkhausAutoSoftware.Ticketautomat>
+    <ParkhausAutoSoftware.Ticketautomat>
+      <tickets/>
+    </ParkhausAutoSoftware.Ticketautomat>
+    <ParkhausAutoSoftware.Ticketautomat>
+      <tickets/>
+    </ParkhausAutoSoftware.Ticketautomat>
   </ticketautomaten>
   <etagen>
     <ParkhausAutoSoftware.Etage>
-      <name>A</name>
-      <plaetze>30</plaetze>
+      <name>Etage 1</name>
+      <plaetze>2</plaetze>
+      <belegt>0</belegt>
+    </ParkhausAutoSoftware.Etage>
+    <ParkhausAutoSoftware.Etage>
+      <name>Etage 2</name>
+      <plaetze>1</plaetze>
       <belegt>0</belegt>
     </ParkhausAutoSoftware.Etage>
   </etagen>
@@ -33,22 +66,36 @@
       <id>0</id>
       <parkt>false</parkt>
     </ParkhausAutoSoftware.Kunde>
+    <ParkhausAutoSoftware.Kunde>
+      <tickets>
+        <ParkhausAutoSoftware.Ticket reference="../../../../ticketautomaten/ParkhausAutoSoftware.Ticketautomat/tickets/ParkhausAutoSoftware.Ticket[2]"/>
+      </tickets>
+      <id>1</id>
+      <parkt>false</parkt>
+    </ParkhausAutoSoftware.Kunde>
+    <ParkhausAutoSoftware.Kunde>
+      <tickets>
+        <ParkhausAutoSoftware.Ticket reference="../../../../ticketautomaten/ParkhausAutoSoftware.Ticketautomat/tickets/ParkhausAutoSoftware.Ticket[3]"/>
+      </tickets>
+      <id>2</id>
+      <parkt>false</parkt>
+    </ParkhausAutoSoftware.Kunde>
   </kunden>
   <errors>
     <ParkhausAutoSoftware.ErrorMeldung>
-      <errorId>deea19ad-c91e-4ee0-8d2b-1a332347bec0</errorId>
-      <meldungstext>Dies ist ein Test</meldungstext>
+      <errorId>c542c117-4908-40c7-a139-d165eca78dab</errorId>
+      <meldungstext>Fehlermeldung</meldungstext>
     </ParkhausAutoSoftware.ErrorMeldung>
   </errors>
   <manager>
-    <name>Test</name>
+    <name>Werner Winkler</name>
     <arbeit>Manager</arbeit>
     <preis>3600.0</preis>
   </manager>
-  <gkohle>16.0</gkohle>
-  <tkohle>16.0</tkohle>
-  <wkohle>16.0</wkohle>
+  <gkohle>636.0</gkohle>
+  <tkohle>636.0</tkohle>
+  <wkohle>636.0</wkohle>
   <ende>
-    <time>2018-01-14T13:16:52.864</time>
+    <time>2018-01-21T16:52:04.42</time>
   </ende>
 </ParkhausAutoSoftware.Parkhaus>

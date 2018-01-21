@@ -174,6 +174,7 @@ public class Start extends JFrame implements Runnable{
 							tbxPreis.setEnabled(true);
 							btnFehlerAnzeigen.setEnabled(true);
 							tbxPreis.setText(Float.toString(p.getManager().getPreis()));
+							jf.setTitle("Manager: "+p.getManager().getName()+" von Parkhaus: " + p.getName());
 							try {
 								KundenFenster frame = new KundenFenster(sthis);							
 								frame.setVisible(true);
@@ -634,6 +635,7 @@ public class Start extends JFrame implements Runnable{
 				tbxEtagenplaetzte.setEnabled(true);
 				tbxPreis.setEnabled(true);
 				tbxPreis.setText(Float.toString(p.getManager().getPreis()));
+				this.setTitle("Manager: "+p.getManager().getName()+" von Parkhaus: " + p.getName());
 				gesamt = p.getgKohle();
 				int dit = NewZeit.differenzinTagen(jetzt, p.getEnde());
 				dit = Math.abs(dit);
